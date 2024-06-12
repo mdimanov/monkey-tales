@@ -3,7 +3,7 @@ import React from "react";
 const Profile = () => {
   return (
     <div>
-      <h1 className="text-20 font-bold text-slate-200">Profile</h1>
+      <h1 className="main_title">Profile</h1>
     </div>
   );
 };
