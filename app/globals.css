@@ -21,7 +21,7 @@
   
   @layer utilities {
     .input-class {
-      @apply text-16 placeholder:text-16 bg-black-1 rounded-[6px] placeholder:text-gray-1 border-none text-gray-1;
+      @apply text-16 placeholder:text-16 bg-black-2 rounded-[6px] placeholder:text-gray-1 border-none text-gray-1;
     }
     .main_title {
       @apply text-24 font-bold text-slate-50 mb-5;
@@ -152,10 +152,23 @@
   .cl-internal-4a7e9l {
     color: white;
   }
-  
   .cl-userButtonPopoverActionButtonIcon {
     color: white;
   }
   .cl-internal-wkkub3 {
     color: #5B21B6;
+  }
+  .input-class:focus {
+    --tw-ring-offset-shadow: 0 0 0 1px #5B21B6!important;
+    --tw-ring-shadow: 0 0 0 1px #5B21B6!important;
+  }
+  .focus\:ring-offset-2:focus {
+    --tw-ring-offset-width: none!important;
+  }
+  .capitalize-first {
+    text-transform: lowercase; 
+  }
+  
+  .capitalize-first::first-letter {
+    text-transform: uppercase; 
   }

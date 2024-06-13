@@ -49,3 +49,5 @@ export const TALES: Tale[] = [
     imgURL: "/images/thumb2.png"
   }
 ];
+
+export const VOICES = ['Alloy', 'Shimmer', 'Nova', 'Echo', 'Fable', 'Onyx']
