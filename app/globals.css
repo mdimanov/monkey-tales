@@ -121,7 +121,11 @@
   
   /* ======= clerk overrides ======== */
   .cl-socialButtonsIconButton {
+    background-color: black;
     border: 2px solid #222429;
+  }
+  .cl-socialButtonsIconButton:hover {
+    background-color: rgba(0, 0, 0, 0.6);
   }
   .cl-button {
     color: white;
@@ -130,13 +134,13 @@
     filter: invert(1);
   }
   .cl-internal-b3fm6y {
-    background: #f97535;
+    background: #5B21B6;
   }
   .cl-formButtonPrimary {
-    background: #f97535;
+    background: #5B21B6;
   }
   .cl-footerActionLink {
-    color: #f97535;
+    color: #A78BFA;
   }
   .cl-headerSubtitle {
     color: #c5d0e6;
@@ -153,5 +157,5 @@
     color: white;
   }
   .cl-internal-wkkub3 {
-    color: #f97535;
+    color: #5B21B6;
   }

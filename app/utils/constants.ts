@@ -1,6 +1,7 @@
 type NavigationItem = {
     label: string;
     route: string;
+    icon: string;
   };
 
  export type Tale = {
@@ -11,9 +12,9 @@ type NavigationItem = {
   };
 
 export const NAVIGATION: NavigationItem[] = [
-    { label: "Home", route: "/",},
-    { label: "Profile", route: "/profile" },
-    { label: "Discover", route: "/discover"},
+    { label: "Home", route: "/", icon: 'home'},
+    { label: "Discover", route: "/discover", icon: 'search'},
+    { label: "Create Tale", route: "/create-tale", icon: 'book' },
   ];
   
 export const TALES: Tale[] = [

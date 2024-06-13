@@ -35,7 +35,7 @@ const LeftSidebar = () => {
             Monkey<span className="font-light">Tales</span>
           </h1>
         </Link>
-        {NAVIGATION.map(({ label, route }) => {
+        {NAVIGATION.map(({ label, route, icon }) => {
           const isActive =
             pathname === route || pathname.startsWith(`${route}/`);
           return (
@@ -50,7 +50,7 @@ const LeftSidebar = () => {
               )}
             >
               <Image
-                src={`/icons/${label}.png`}
+                src={`/icons/${icon}.png`}
                 alt="icon"
                 width={22}
                 height={22}
