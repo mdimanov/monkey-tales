@@ -2,8 +2,8 @@
 
 import { Dispatch, SetStateAction } from "react";
 
-import { Id } from "@/convex/_generated/dataModel";
-
+import { Id } from "../convex/_generated/dataModel"
+ 
 export interface EmptyStateProps {
   title: string;
   search?: boolean;
@@ -127,3 +127,7 @@ export type UseDotButtonType = {
   scrollSnaps: number[];
   onDotButtonClick: (index: number) => void;
 };
+
+export interface SpeechParams {
+    voice: 'alloy' | 'echo' | 'fable' | 'onyx' | 'nova' | 'shimmer';
+}

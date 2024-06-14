@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { error } from "console";
+import { useAction } from "convex/react";
+import { api } from "@/convex/_generated/api";
 import { Loader } from "lucide-react";
 import React, { useState } from "react";
 
@@ -16,7 +18,7 @@ const useGenerateTale = ({
 }: GenerateTaleProps) => {
   // Logic for tale generation
   const [isGenerating, setIsGenerating] = useState(false);
-
+  const getTaleAudio = useAction(api.openai.generateAudioAction);
   const generateTale = async () => {
     setIsGenerating(true);
     setAudio("");
@@ -26,6 +28,10 @@ const useGenerateTale = ({
     }
 
     try {
+      const response = await getTaleAudio({
+        voice: voiceType,
+        input: voicePrompt,
+      });
     } catch (error) {
       console.log("Error generating tale", error);
       //TODO: show error message

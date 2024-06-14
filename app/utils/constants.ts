@@ -50,4 +50,4 @@ export const TALES: Tale[] = [
   }
 ];
 
-export const VOICES = ['Alloy', 'Shimmer', 'Nova', 'Echo', 'Fable', 'Onyx']
+export const VOICES = ['alloy', 'shimmer', 'nova', 'echo', 'fable', 'onyx']
