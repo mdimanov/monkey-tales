@@ -12,9 +12,7 @@ const Home = () => {
     <div>
       <h1 className="main_title">Trending Tales</h1>
 
-      <div className="flex min-h-screen flex-col items-center justify-between p-24">
-        {/* {tasks?.map(({ _id, text }) => <div key={_id}>{text}</div>)} */}
-      </div>
+      {/* {tasks?.map(({ _id, text }) => <div key={_id}>{text}</div>)} */}
 
       <div className="tale_grid">
         {TALES.map((tale) => (

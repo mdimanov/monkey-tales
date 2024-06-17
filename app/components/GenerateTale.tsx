@@ -1,14 +1,16 @@
 "use client";
 
+import React, { useState } from "react";
 import { GenerateTaleProps } from "@/Types";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { error } from "console";
-import { useAction } from "convex/react";
+import { useAction, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Loader } from "lucide-react";
-import React, { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+import { useUploadFiles } from "@xixixao/uploadstuff/react";
+import { useToast } from "@/components/ui/use-toast";
 
 const useGenerateTale = ({
   setAudio,
@@ -18,12 +20,21 @@ const useGenerateTale = ({
 }: GenerateTaleProps) => {
   // Logic for tale generation
   const [isGenerating, setIsGenerating] = useState(false);
+  const { toast } = useToast();
+  const generateUploadUrl = useMutation(api.files.generateUploadUrl);
+  const { startUpload } = useUploadFiles(generateUploadUrl);
+
   const getTaleAudio = useAction(api.openai.generateAudioAction);
+
+  const getAudioUrl = useMutation(api.tales.getUrl);
+
   const generateTale = async () => {
     setIsGenerating(true);
     setAudio("");
     if (!voicePrompt) {
-      //TODO: show error message
+      toast({
+        title: "Please provide a voice prompt to generate tale",
+      });
       return setIsGenerating(false);
     }
 
@@ -32,9 +43,27 @@ const useGenerateTale = ({
         voice: voiceType,
         input: voicePrompt,
       });
+
+      const blob = new Blob([response], { type: "audio/mpeg" });
+      const fileName = `tale-${uuidv4()}.mp3`;
+      const file = new File([blob], fileName, { type: "audio/mpeg" });
+
+      const uploaded = await startUpload([file]);
+      const storageId = (uploaded[0].response as any).storageId;
+
+      setAudioStorageId(storageId);
+      const audioUrl = await getAudioUrl({ storageId });
+      setAudio(audioUrl!);
+      setIsGenerating(false);
+      toast({
+        title: "Tale generated successfully",
+      });
     } catch (error) {
       console.log("Error generating tale", error);
-      //TODO: show error message
+      toast({
+        title: "Error generating tale",
+        variant: "destructive",
+      });
       setIsGenerating(false);
     }
   };
@@ -59,7 +88,10 @@ const GenerateTale = (props: GenerateTaleProps) => {
         />
       </div>
       <div className="mt-5 w-full max-w-[200px]">
-        <Button className="text-16 bg-black-2 py-4 font-bold text-white-1 transition-all duration-500 hover:bg-black-3">
+        <Button
+          className="text-16 bg-black-2 py-4 font-bold text-white-1 transition-all duration-500 hover:bg-black-3"
+          onClick={generateTale}
+        >
           {isGenerating ? (
             <>
               Generating
