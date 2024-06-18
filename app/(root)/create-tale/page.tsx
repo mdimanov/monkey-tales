@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { cn } from "@/lib/utils";
 import { VOICES } from "../../utils/constants";
+import { useToast } from "@/components/ui/use-toast";
 import GenerateTale from "../../components/GenerateTale";
 import GenerateThumbnail from "../../components/GenerateThumbnail";
 
@@ -30,6 +31,9 @@ import {
 import { useState } from "react";
 import { Loader } from "lucide-react";
 import { Id } from "@/convex/_generated/dataModel";
+import { useMutation } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   taleTitle: z.string().min(2),
@@ -37,6 +41,7 @@ const formSchema = z.object({
 });
 
 const CreateTale = () => {
+  const router = useRouter();
   const [imagePrompt, setImagePrompt] = useState("");
   const [imageStorageId, setImageStorageId] = useState<Id<"_storage"> | null>(
     null
@@ -52,6 +57,10 @@ const CreateTale = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const createTale = useMutation(api.tales.createTale);
+
+  const { toast } = useToast();
+
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -61,11 +70,38 @@ const CreateTale = () => {
     },
   });
 
-  // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+  async function onSubmit(data: z.infer<typeof formSchema>) {
+    try {
+      setIsSubmitting(true);
+      if (!audioUrl || !imageUrl || !voiceType) {
+        toast({ title: "Please generate audio and image first" });
+        setIsSubmitting(false);
+        throw new Error("Please generate audio and image first");
+      }
+
+      const tale = await createTale({
+        taleTitle: data.taleTitle,
+        taleDescription: data.taleDescription,
+        audioUrl,
+        imageUrl,
+        voiceType,
+        imagePrompt,
+        voicePrompt,
+        views: 0,
+        audioDuration,
+        audioStorageId: audioStorageId!,
+        imageStorageId: imageStorageId!,
+      });
+      toast({
+        title: "Tale created successfully",
+      });
+      setIsSubmitting(false);
+      router.push("/");
+    } catch (error) {
+      console.log("Error");
+      toast({ title: "Error", variant: "destructive" });
+      setIsSubmitting(false);
+    }
   }
 
   return (

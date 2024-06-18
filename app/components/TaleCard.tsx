@@ -1,12 +1,13 @@
 import React from "react";
 import { Tale } from "../utils/constants";
 import Image from "next/image";
+import { TaleCardProps } from "@/Types";
 
-const TaleCard = ({ title, description, imgURL }: Tale) => (
+const TaleCard = ({ title, description, imgUrl }: TaleCardProps) => (
   <div className="cursor-pointer">
     <figure className="flex flex-col gap-2">
       <Image
-        src={imgURL}
+        src={imgUrl}
         alt={title}
         width={170}
         height={170}

@@ -21,6 +21,7 @@ const useGenerateTale = ({
   // Logic for tale generation
   const [isGenerating, setIsGenerating] = useState(false);
   const { toast } = useToast();
+
   const generateUploadUrl = useMutation(api.files.generateUploadUrl);
   const { startUpload } = useUploadFiles(generateUploadUrl);
 
@@ -31,6 +32,7 @@ const useGenerateTale = ({
   const generateTale = async () => {
     setIsGenerating(true);
     setAudio("");
+
     if (!voicePrompt) {
       toast({
         title: "Please provide a voice prompt to generate tale",
@@ -52,6 +54,7 @@ const useGenerateTale = ({
       const storageId = (uploaded[0].response as any).storageId;
 
       setAudioStorageId(storageId);
+
       const audioUrl = await getAudioUrl({ storageId });
       setAudio(audioUrl!);
       setIsGenerating(false);

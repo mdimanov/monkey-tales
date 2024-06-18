@@ -2,26 +2,23 @@
 
 import { useQuery } from "convex/react";
 import TaleCard from "../components/TaleCard";
-import { TALES } from "../utils/constants";
 
 import { api } from "@/convex/_generated/api";
 
 const Home = () => {
-  // const tasks = useQuery(api.tasks.get);
+  const trendingTales = useQuery(api.tales.getTrendingTales);
   return (
     <div>
       <h1 className="main_title">Trending Tales</h1>
 
-      {/* {tasks?.map(({ _id, text }) => <div key={_id}>{text}</div>)} */}
-
       <div className="tale_grid">
-        {TALES.map((tale) => (
+        {trendingTales?.map(({ _id, taleTitle, taleDescription, imageUrl }) => (
           <TaleCard
-            key={tale.id}
-            id={tale.id}
-            title={tale.title}
-            description={tale.description}
-            imgURL={tale.imgURL}
+            key={_id}
+            taleId={_id}
+            title={taleTitle}
+            description={taleDescription}
+            imgUrl={imageUrl}
           />
         ))}
       </div>
