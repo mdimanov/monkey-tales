@@ -76,7 +76,7 @@ const GenerateTale = (props: GenerateTaleProps) => {
   return (
     <div>
       <div className="flex flex-col gap-2.5">
-        <Label className="text-16 font-bold text-white-1">
+        <Label className="text-sm font-bold text-white-1">
           AI Prompt to generate Tale
         </Label>
         <Textarea
@@ -94,8 +94,8 @@ const GenerateTale = (props: GenerateTaleProps) => {
         >
           {isGenerating ? (
             <>
+              <Loader size={20} className="animate-spin mr-2" />
               Generating
-              <Loader size={20} className="animate-spin ml-2" />
             </>
           ) : (
             <>
