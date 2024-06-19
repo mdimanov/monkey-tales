@@ -56,3 +56,131 @@ export const getTrendingTales = query({
        return tales;
     }
 })
+
+export const getTalesById = query({
+    args: {
+        taleId: v.id('tales')
+    },
+    handler: async (ctx, args) => {
+      return await ctx.db.get(args.taleId);
+    }
+})
+
+export const getTaleByVoiceType = query({
+    args: {
+      taleId: v.id("tales"),
+    },
+    handler: async (ctx, args) => {
+      const tale = await ctx.db.get(args.taleId);
+  
+      return await ctx.db
+        .query("tales")
+        .filter((q) =>
+          q.and(
+            q.eq(q.field("voiceType"), tale?.voiceType),
+            q.neq(q.field("_id"), args.taleId)
+          )
+        )
+        .collect();
+    },
+  });
+  
+  export const getAllTales = query({
+    handler: async (ctx) => {
+      return await ctx.db.query("tales").order("desc").collect();
+    },
+  });
+
+  
+export const getTaleByAuthorId = query({
+    args: {
+      authorId: v.string(),
+    },
+    handler: async (ctx, args) => {
+      const tales = await ctx.db
+        .query("tales")
+        .filter((q) => q.eq(q.field("authorId"), args.authorId))
+        .collect();
+  
+      const totalListeners = tales.reduce(
+        (sum, tale) => sum + tale.views,
+        0
+      );
+  
+      return { tales, listeners: totalListeners };
+    },
+  });
+
+  export const getTaleBySearch = query({
+    args: {
+      search: v.string(),
+    },
+    handler: async (ctx, args) => {
+      if (args.search === "") {
+        return await ctx.db.query("tales").order("desc").collect();
+      }
+  
+      const authorSearch = await ctx.db
+        .query("tales")
+        .withSearchIndex("search_author", (q) => q.search("author", args.search))
+        .take(10);
+  
+      if (authorSearch.length > 0) {
+        return authorSearch;
+      }
+  
+      const titleSearch = await ctx.db
+        .query("tales")
+        .withSearchIndex("search_title", (q) =>
+          q.search("taleTitle", args.search)
+        )
+        .take(10);
+  
+      if (titleSearch.length > 0) {
+        return titleSearch;
+      }
+  
+      return await ctx.db
+        .query("tales")
+        .withSearchIndex("search_body", (q) =>
+          q.search("taleDescription" || "taleTitle", args.search)
+        )
+        .take(10);
+    },
+  });
+
+  export const updateTaleViews = mutation({
+    args: {
+      taleId: v.id("tales"),
+    },
+    handler: async (ctx, args) => {
+      const tale = await ctx.db.get(args.taleId);
+  
+      if (!tale) {
+        throw new ConvexError("Tale not found");
+      }
+  
+      return await ctx.db.patch(args.taleId, {
+        views: tale.views + 1,
+      });
+    },
+  });
+
+  export const deleteTale = mutation({
+    args: {
+      taleId: v.id("tales"),
+      imageStorageId: v.id("_storage"),
+      audioStorageId: v.id("_storage"),
+    },
+    handler: async (ctx, args) => {
+      const tale = await ctx.db.get(args.taleId);
+  
+      if (!tale) {
+        throw new ConvexError("Tale not found");
+      }
+  
+      await ctx.storage.delete(args.imageStorageId);
+      await ctx.storage.delete(args.audioStorageId);
+      return await ctx.db.delete(args.taleId);
+    },
+  });
