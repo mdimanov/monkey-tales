@@ -18,33 +18,33 @@ export const getUserById = query({
   },
 });
 
-// this query is used to get the top user by podcast count. first the podcast is sorted by views and then the user is sorted by total podcasts, so the user with the most podcasts will be at the top.
-export const getTopUserByPodcastCount = query({
+// this query is used to get the top user by tale count. first the tale is sorted by views and then the user is sorted by total tales, so the user with the most tales will be at the top.
+export const getTopUserByTaleCount = query({
   args: {},
   handler: async (ctx, args) => {
     const user = await ctx.db.query("users").collect();
 
     const userData = await Promise.all(
       user.map(async (u) => {
-        const podcasts = await ctx.db
+        const tales = await ctx.db
           .query("tales")
           .filter((q) => q.eq(q.field("authorId"), u.clerkId))
           .collect();
 
-        const sortedPodcasts = podcasts.sort((a, b) => b.views - a.views);
+        const sortedTales = tales.sort((a, b) => b.views - a.views);
 
         return {
           ...u,
-          totalPodcasts: podcasts.length,
-          podcast: sortedPodcasts.map((p) => ({
-            podcastTitle: p.taleTitle,
+          totalTales: tales.length,
+          tale: sortedTales.map((p) => ({
+            taleTitle: p.taleTitle,
             pocastId: p._id,
           })),
         };
       })
     );
 
-    return userData.sort((a, b) => b.totalPodcasts - a.totalPodcasts);
+    return userData.sort((a, b) => b.totalTales - a.totalTales);
   },
 });
 
@@ -86,13 +86,13 @@ export const updateUser = internalMutation({
       email: args.email,
     });
 
-    const podcast = await ctx.db
+    const tale = await ctx.db
       .query("tales")
       .filter((q) => q.eq(q.field("authorId"), args.clerkId))
       .collect();
 
     await Promise.all(
-      podcast.map(async (p) => {
+      tale.map(async (p) => {
         await ctx.db.patch(p._id, {
           authorImageUrl: args.imageUrl,
         });

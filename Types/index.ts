@@ -86,8 +86,8 @@ export interface TaleDetailPlayerProps {
   isOwner: boolean;
   imageUrl: string;
   taleId: Id<"tales">;
-  imageStorageId: Id<"_storage">;
-  audioStorageId: Id<"_storage">;
+  imageStorageId?: Id<"_storage">;
+  audioStorageId?: Id<"_storage">;
   authorImageUrl: string;
   authorId: string;
 }

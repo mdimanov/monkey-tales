@@ -6,6 +6,8 @@ import { cn } from "@/lib/utils";
 import { Raleway } from "next/font/google";
 import { NAVIGATION } from "../utils/constants";
 import { usePathname, useRouter } from "next/navigation";
+import { SignedIn, SignedOut, useClerk } from "@clerk/nextjs";
+import { Button } from "@/components/ui/button";
 
 const raleway = Raleway({
   subsets: ["latin"],
@@ -15,6 +17,7 @@ const raleway = Raleway({
 const LeftSidebar = () => {
   const pathname = usePathname();
   const router = useRouter();
+  const { signOut } = useClerk();
 
   return (
     <section className="left_sidebar">
@@ -61,6 +64,37 @@ const LeftSidebar = () => {
           );
         })}
       </nav>
+      <SignedOut>
+        <div className="flex-center w-full pb-14 max-lg:px-4 lg:pr-8">
+          <Button className="text-16 w-full transition-all duration-500 bg-violet-600 hover:bg-violet-800 font-extrabold text-white-1">
+            <Link href="/sign-in" className="flex">
+              <Image
+                src="/icons/signin.svg"
+                width={20}
+                height={20}
+                alt="sign in"
+              />
+              &nbsp; Sign In
+            </Link>
+          </Button>
+        </div>
+      </SignedOut>
+      <SignedIn>
+        <div className="flex-center w-full pb-14 max-lg:px-4 lg:pr-8">
+          <Button
+            className="text-16 flex w-full transition-all duration-500 bg-violet-600 hover:bg-violet-800 font-extrabold text-white-1"
+            onClick={() => signOut(() => router.push("/"))}
+          >
+            <Image
+              src="/icons/logout.svg"
+              width={20}
+              height={20}
+              alt="log out"
+            />
+            &nbsp; Log Out
+          </Button>
+        </div>
+      </SignedIn>
     </section>
   );
 };
