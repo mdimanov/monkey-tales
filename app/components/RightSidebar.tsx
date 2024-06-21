@@ -5,9 +5,10 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import Header from "./Header";
-import Carousel from "./Carousel";
+import EmblaCarousel from "./EmblaCarousel";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
+import LoaderSpiner from "./LoaderSpiner";
 
 const RightSidebar = () => {
   const { user } = useUser();
@@ -31,8 +32,12 @@ const RightSidebar = () => {
         </Link>
       </SignedIn>
       <section>
-        <Header headerTitle="Fans Also Liked" />
-        {/* <Carousel fansLikeDetail={topTaleTellers} /> */}
+        <Header headerTitle="Other authors" />
+        {topTaleTellers ? (
+          <EmblaCarousel fansLikeDetail={topTaleTellers} />
+        ) : (
+          <LoaderSpiner />
+        )}
       </section>
     </section>
   );

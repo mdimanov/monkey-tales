@@ -38,7 +38,7 @@ export const getTopUserByTaleCount = query({
           totalTales: tales.length,
           tale: sortedTales.map((p) => ({
             taleTitle: p.taleTitle,
-            pocastId: p._id,
+            taleId: p._id,
           })),
         };
       })

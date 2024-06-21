@@ -5,6 +5,7 @@ import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 import { CarouselProps } from "@/Types";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const EmblaCarousel = ({ fansLikeDetail }: CarouselProps) => {
   const router = useRouter();
@@ -30,32 +31,42 @@ const EmblaCarousel = ({ fansLikeDetail }: CarouselProps) => {
   const slides =
     fansLikeDetail && fansLikeDetail?.filter((item) => item.totalTales > 0);
 
-  console.log("slides", slides);
-
   return (
-    <section className="embla">
-      <div className="embla__viewport" ref={emblaRef}>
-        <div className="embla__container">
-          {slides.map((index) => (
-            <div className="embla__slide" key={index}>
-              <div className="embla__slide__number">{index + 1}</div>
+    <section
+      className="flex w-full flex-col gap-4 overflow-hidden"
+      ref={emblaRef}
+    >
+      <div className="flex">
+        {slides.slice(0, 5).map((item) => (
+          <figure
+            key={item._id}
+            className="carousel_box"
+            onClick={() => router.push(`/tale/${item.tale[0]?.taleId}`)}
+          >
+            <Image
+              src={item.imageUrl}
+              alt="carousel image"
+              fill
+              className="absolute size-full border-none"
+            />
+            <div className="bg-slate-900/50 relative z-10 flex flex-col p-4">
+              <h3 className="text-sm truncate font-semibold text-white-1">
+                {item.tale[0]?.taleTitle}
+              </h3>
+              <p className="text-12 font-normal text-white-2">{item.name}</p>
             </div>
-          ))}
-        </div>
+          </figure>
+        ))}
       </div>
 
-      <div className="embla__controls">
-        <div className="embla__dots">
-          {scrollSnaps.map((_, index) => (
-            <DotButton
-              key={index}
-              onClick={() => onDotButtonClick(index)}
-              className={"embla__dot".concat(
-                index === selectedIndex ? " embla__dot--selected" : ""
-              )}
-            />
-          ))}
-        </div>
+      <div className="flex justify-center gap-2">
+        {scrollSnaps.map((_, index) => (
+          <DotButton
+            key={index}
+            onClick={() => onDotButtonClick(index)}
+            selected={index === selectedIndex}
+          />
+        ))}
       </div>
     </section>
   );
