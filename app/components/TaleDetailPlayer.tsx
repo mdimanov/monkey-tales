@@ -71,8 +71,8 @@ const TaleDetailPlayer = ({
       <div className="flex flex-col gap-8 max-md:items-center md:flex-row">
         <Image
           src={imageUrl}
-          width={250}
-          height={250}
+          width={300}
+          height={300}
           alt="Podcast image"
           className="aspect-square rounded-lg"
         />

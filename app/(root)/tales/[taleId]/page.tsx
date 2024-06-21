@@ -52,30 +52,30 @@ const TaleDetails = ({
           <p>{tale?.imagePrompt}</p>
         </div>
       </div>
-      <section className="mt-8 flex flex-col gap-5">
+      <section className="my-8  flex flex-col gap-5">
         <h3 className="text-18 text-white-1 font-medium">Similar tales</h3>
+        {similarTales && similarTales.length > 0 ? (
+          <div className="tale_grid">
+            {similarTales?.map(
+              ({ _id, taleTitle, taleDescription, imageUrl }) => (
+                <TaleCard
+                  key={_id}
+                  taleId={_id}
+                  title={taleTitle}
+                  description={taleDescription}
+                  imgUrl={imageUrl}
+                />
+              )
+            )}
+          </div>
+        ) : (
+          <EmptyState
+            title="No similar tales found"
+            buttonLink="/discover"
+            buttonText="Discover more tales"
+          />
+        )}
       </section>
-      {similarTales && similarTales.length > 0 ? (
-        <div className="tale_grid">
-          {similarTales?.map(
-            ({ _id, taleTitle, taleDescription, imageUrl }) => (
-              <TaleCard
-                key={_id}
-                taleId={_id}
-                title={taleTitle}
-                description={taleDescription}
-                imgUrl={imageUrl}
-              />
-            )
-          )}
-        </div>
-      ) : (
-        <EmptyState
-          title="No similar tales found"
-          buttonLink="/discover"
-          buttonText="Discover more tales"
-        />
-      )}
     </section>
   );
 };

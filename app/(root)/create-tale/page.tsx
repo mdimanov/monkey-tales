@@ -98,8 +98,6 @@ const CreateTale = () => {
       setIsSubmitting(false);
       router.push("/");
     } catch (error) {
-      console.log("Error");
-      toast({ title: "Error", variant: "destructive" });
       setIsSubmitting(false);
     }
   }
