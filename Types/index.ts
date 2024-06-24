@@ -46,7 +46,7 @@ export interface TaleProps {
 }
 
 export interface ProfileTaleProps {
-  podcasts: TaleProps[];
+  tales: TaleProps[];
   listeners: number;
 }
 
@@ -82,6 +82,7 @@ export interface LatestTaleCardProps {
 export interface TaleDetailPlayerProps {
   audioUrl: string;
   taleTitle: string;
+  taleDescription: string;
   author: string;
   isOwner: boolean;
   imageUrl: string;
@@ -126,6 +127,11 @@ export type UseDotButtonType = {
   selectedIndex: number;
   scrollSnaps: number[];
   onDotButtonClick: (index: number) => void;
+};
+
+export type IconProps = {
+  src: string;
+  isVisible: boolean;
 };
 
 export interface SpeechParams {

@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { api } from "@/convex/_generated/api";
-// import { useAudio } from "@/providers/AudioProvider";
+import { useAudio } from "@/providers/AudioProvider";
 import { TaleDetailPlayerProps } from "@/Types";
 
 import LoaderSpinner from "./LoaderSpiner";
@@ -26,10 +26,10 @@ const TaleDetailPlayer = ({
   authorId,
 }: TaleDetailPlayerProps) => {
   const router = useRouter();
-  //   const { setAudio } = useAudio();
+  const { setAudio } = useAudio();
   const { toast } = useToast();
   const [isDeleting, setIsDeleting] = useState(false);
-  const deletePodcast = useMutation(api.tales.deleteTale);
+  const deleteTale = useMutation(api.tales.deleteTale);
 
   const handleDelete = async () => {
     if (!imageStorageId || !audioStorageId) {
@@ -41,7 +41,7 @@ const TaleDetailPlayer = ({
       return;
     }
     try {
-      await deletePodcast({ taleId, imageStorageId, audioStorageId });
+      await deleteTale({ taleId, imageStorageId, audioStorageId });
       toast({
         title: "Tale deleted",
       });
@@ -56,13 +56,13 @@ const TaleDetailPlayer = ({
   };
 
   const handlePlay = () => {
-    // setAudio({
-    //   title: podcastTitle,
-    //   audioUrl,
-    //   imageUrl,
-    //   author,
-    //   podcastId,
-    // });
+    setAudio({
+      title: taleTitle,
+      audioUrl,
+      imageUrl,
+      author,
+      taleId,
+    });
   };
 
   if (!imageUrl || !authorImageUrl) return <LoaderSpinner />;
@@ -74,7 +74,7 @@ const TaleDetailPlayer = ({
           src={imageUrl}
           width={300}
           height={300}
-          alt="Podcast image"
+          alt="Tale image"
           className="aspect-square rounded-lg"
         />
         <div className="flex w-full flex-col gap-5 max-md:items-center md:gap-9">
@@ -112,7 +112,7 @@ const TaleDetailPlayer = ({
               height={20}
               alt="random play"
             />
-            &nbsp; Play podcast
+            &nbsp; Play tale
           </Button>
         </div>
       </div>
