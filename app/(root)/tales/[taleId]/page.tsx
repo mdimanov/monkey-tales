@@ -39,10 +39,7 @@ const TaleDetails = ({
         </figure>
       </header>
       <TaleDetailPlayer isOwner={isOwner} taleId={tale._id} {...tale} />
-      <p className="pb-8 pt-[45px] font-medium max-md:text-center">
-        {tale?.taleDescription}
-      </p>
-      <div className="flex flex-col gap-8">
+      <div className="flex flex-col mt-6 gap-8">
         <div className="flex flex-col gap-4">
           <h3 className="text-18 text-white-1 font-medium">Transcription</h3>
           <p>{tale?.voicePrompt}</p>

@@ -15,6 +15,7 @@ import { useToast } from "@/components/ui/use-toast";
 const TaleDetailPlayer = ({
   audioUrl,
   taleTitle,
+  taleDescription,
   author,
   imageUrl,
   taleId,
@@ -82,7 +83,7 @@ const TaleDetailPlayer = ({
               {taleTitle}
             </h1>
             <figure
-              className="flex cursor-pointer items-center gap-2"
+              className="flex w-full cursor-pointer items-center gap-2"
               onClick={() => {
                 router.push(`/profile/${authorId}`);
               }}
@@ -96,6 +97,9 @@ const TaleDetailPlayer = ({
               />
               <h2 className="text-16 font-normal text-white-3">{author}</h2>
             </figure>
+            <p className="font-medium md:py-0 py-6 max-md:text-center">
+              {taleDescription}
+            </p>
           </article>
 
           <Button
@@ -113,11 +117,11 @@ const TaleDetailPlayer = ({
         </div>
       </div>
       {isOwner && (
-        <div className="relative mt-2">
+        <div className="relative mt-2 mx-2 min-w-5">
           <Image
             src="/icons/three-dots.svg"
-            width={20}
-            height={30}
+            width={30}
+            height={40}
             alt="Three dots icon"
             className="cursor-pointer"
             onClick={() => setIsDeleting((prev) => !prev)}
