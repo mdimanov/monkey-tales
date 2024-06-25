@@ -75,7 +75,7 @@ const TaleDetailPlayer = ({
           width={300}
           height={300}
           alt="Tale image"
-          className="aspect-square rounded-lg"
+          className="max-w-full max-h-full w-auto h-auto rounded-lg"
         />
         <div className="flex w-full flex-col gap-5 max-md:items-center md:gap-9">
           <article className="flex flex-col gap-2 max-md:items-center">

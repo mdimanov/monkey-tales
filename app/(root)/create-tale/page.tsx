@@ -182,7 +182,7 @@ const CreateTale = () => {
               )}
             />
           </div>
-          <div className="flex flex-col pt-10">
+          <div className="flex flex-col py-10">
             <GenerateTale
               setAudioStorageId={setAudioStorageId}
               setAudio={setAudioUrl}

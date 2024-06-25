@@ -22,7 +22,7 @@ const GenerateThumbnail = ({
   imagePrompt,
   setImagePrompt,
 }: GenerateThumbnailProps) => {
-  const [isAiThumbnail, setIsAiThumbnail] = useState(false);
+  const [isAiThumbnail, setIsAiThumbnail] = useState(true);
   const [isImageLoading, setIsImageLoading] = useState(false);
   const imageRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();

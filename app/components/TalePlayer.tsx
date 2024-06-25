@@ -12,7 +12,7 @@ import { Progress } from "@/components/ui/progress";
 const TalePlayer = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [duration, setDuration] = useState(0);
+  const [duration, setDuration] = useState(100);
   const [isMuted, setIsMuted] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const { audio } = useAudio();
@@ -113,7 +113,7 @@ const TalePlayer = () => {
           onEnded={handleAudioEnded}
         />
         <div className="flex items-center gap-4 max-md:hidden">
-          <Link href={`/tale/${audio?.taleId}`}>
+          <Link href={`/tales/${audio?.taleId}`}>
             <Image
               src={audio?.imageUrl! || "/images/no-photo-available.png"}
               width={64}

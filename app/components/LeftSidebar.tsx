@@ -57,7 +57,7 @@ const LeftSidebar = () => {
                 alt="icon"
                 width={22}
                 height={22}
-                className="mr-3"
+                className="w-auto h-auto mr-3"
               />
               {label}
             </Link>
