@@ -24,7 +24,7 @@ const LeftSidebar = () => {
       <nav className="flex flex-col gap-4">
         <Link
           href="/"
-          className="flex cursor-pointer items-center gap-2 pb-10 max-lg:justify-center"
+          className="flex cursor-pointer items-center gap-2 pb-10 max-md:justify-center"
         >
           <Image
             src="/icons/monkey-tales.png"
@@ -33,7 +33,7 @@ const LeftSidebar = () => {
             height={32}
           />
           <h1
-            className={`text-20 ${raleway.className} font-extrabold  max-lg:hidden`}
+            className={`text-20 ${raleway.className} font-extrabold  max-md:hidden`}
           >
             Monkey<span className="font-light">Tales</span>
           </h1>
