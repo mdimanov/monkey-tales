@@ -31,8 +31,8 @@ const TaleDetails = ({
         <figure className="flex gap-3">
           <Image
             src="/icons/headphones.svg"
-            width={24}
-            height={24}
+            width={20}
+            height={20}
             alt="headphone"
           />
           <h2>{tale?.views}</h2>

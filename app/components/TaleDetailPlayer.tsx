@@ -68,15 +68,17 @@ const TaleDetailPlayer = ({
   if (!imageUrl || !authorImageUrl) return <LoaderSpinner />;
 
   return (
-    <div className="mt-6 flex w-full justify-between max-md:justify-center">
+    <div className="relative mt-6 flex w-full justify-between max-md:justify-center">
       <div className="flex flex-col gap-8 max-md:items-center md:flex-row">
-        <Image
-          src={imageUrl}
-          width={300}
-          height={300}
-          alt="Tale image"
-          className="max-w-full max-h-full w-auto h-auto rounded-lg"
-        />
+        <div className="w-full">
+          <Image
+            src={imageUrl}
+            width={300}
+            height={300}
+            alt="Tale image"
+            className="w-full h-auto max-w-full max-h-full rounded-lg"
+          />
+        </div>
         <div className="flex w-full flex-col gap-5 max-md:items-center md:gap-6">
           <article className="flex flex-col gap-2 max-md:items-center">
             <h1 className="text-32 font-extrabold tracking-[-0.32px] text-white-1">
@@ -117,11 +119,11 @@ const TaleDetailPlayer = ({
         </div>
       </div>
       {isOwner && (
-        <div className="relative mt-2 mx-2 min-w-5">
+        <div className="absolute right-0 md:relative mt-2 mx-2 min-w-5">
           <Image
             src="/icons/three-dots.svg"
-            width={30}
-            height={40}
+            width={24}
+            height={24}
             alt="Three dots icon"
             className="cursor-pointer"
             onClick={() => setIsDeleting((prev) => !prev)}
