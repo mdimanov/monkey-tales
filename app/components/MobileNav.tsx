@@ -46,7 +46,11 @@ const MobileNav = () => {
       <SheetTrigger>
         <OpenCloseButton isOpen={isOpen} toggleOpenClose={toggleOpenClose} />
       </SheetTrigger>
-      <SheetContent side="left" className="border-none bg-black-2">
+      <SheetContent
+        side="left"
+        className="border-none bg-black-2"
+        onInteractOutside={(event) => event.preventDefault()}
+      >
         <SheetTitle />
         <SheetDescription />
         <nav className="flex flex-col gap-4">

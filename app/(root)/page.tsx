@@ -8,7 +8,7 @@ import { api } from "@/convex/_generated/api";
 const Home = () => {
   const trendingTales = useQuery(api.tales.getTrendingTales);
   return (
-    <div className="flex flex-col gap-9">
+    <div className="flex flex-col gap-6">
       <h1 className="main_title">Trending Tales</h1>
 
       <div className="tale_grid">

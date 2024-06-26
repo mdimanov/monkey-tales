@@ -16,8 +16,8 @@ const Discover = ({
   const talesData = useQuery(api.tales.getTaleBySearch, { search });
 
   return (
-    <div className="flex flex-col gap-9">
-      <div className="flex flex-col gap-9">
+    <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-6">
         <h1 className="main_title">Discover</h1>
         <Searchbar />
         {talesData ? (

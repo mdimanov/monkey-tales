@@ -77,7 +77,7 @@ const TaleDetailPlayer = ({
           alt="Tale image"
           className="max-w-full max-h-full w-auto h-auto rounded-lg"
         />
-        <div className="flex w-full flex-col gap-5 max-md:items-center md:gap-9">
+        <div className="flex w-full flex-col gap-5 max-md:items-center md:gap-6">
           <article className="flex flex-col gap-2 max-md:items-center">
             <h1 className="text-32 font-extrabold tracking-[-0.32px] text-white-1">
               {taleTitle}
