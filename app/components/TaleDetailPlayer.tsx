@@ -30,6 +30,7 @@ const TaleDetailPlayer = ({
   const { toast } = useToast();
   const [isDeleting, setIsDeleting] = useState(false);
   const deleteTale = useMutation(api.tales.deleteTale);
+  const updateViews = useMutation(api.tales.updateTaleViews);
 
   const handleDelete = async () => {
     if (!imageStorageId || !audioStorageId) {
@@ -55,14 +56,23 @@ const TaleDetailPlayer = ({
     }
   };
 
-  const handlePlay = () => {
-    setAudio({
-      title: taleTitle,
-      audioUrl,
-      imageUrl,
-      author,
-      taleId,
-    });
+  const handlePlay = async () => {
+    try {
+      await updateViews({ taleId });
+      setAudio({
+        title: taleTitle,
+        audioUrl,
+        imageUrl,
+        author,
+        taleId,
+      });
+    } catch (error) {
+      console.error("Error updating tale views", error);
+      toast({
+        title: "Error playing tale",
+        variant: "destructive",
+      });
+    }
   };
 
   if (!imageUrl || !authorImageUrl) return <LoaderSpinner />;
