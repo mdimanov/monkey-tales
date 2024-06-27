@@ -118,9 +118,9 @@ export interface CarouselProps {
 }
 
 export interface ProfileCardProps {
-  taleData: ProfileTaleProps;
   imageUrl: string;
   userFirstName: string;
+  listeners: number;
 }
 
 export type UseDotButtonType = {
