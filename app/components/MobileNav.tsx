@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   Sheet,
   SheetClose,
@@ -30,16 +30,6 @@ const MobileNav = () => {
   const toggleOpenClose = () => {
     setIsOpen((prev) => !prev);
   };
-
-  useEffect(() => {
-    if (isOpen) {
-      const timeoutId = setTimeout(() => {
-        document.body.style.pointerEvents = "auto";
-      }, 50);
-
-      return () => clearTimeout(timeoutId);
-    }
-  }, [isOpen]);
 
   return (
     <Sheet>

@@ -10,7 +10,10 @@ const OpenCloseButton: React.FC<OpenCloseButtonProps> = ({
   toggleOpenClose,
 }) => {
   return (
-    <div className="relative w-8 h-8 z-10" onClick={toggleOpenClose}>
+    <div
+      className="relative pointer-events-auto w-8 h-8 z-10"
+      onClick={toggleOpenClose}
+    >
       <Image
         src="/icons/hamburger.svg"
         width={30}
