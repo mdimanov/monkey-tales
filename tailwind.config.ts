@@ -47,7 +47,7 @@ const config = {
           "linear-gradient(270deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.00) 100%)",
       },
       boxShadow: {
-        'purple': '0 25px 50px 0px rgba(91, 33, 182, 0.35)',
+        'purple': '0 0 0px 5px rgba(124, 58, 237, 0.5)',
       },
       keyframes: {
         "accordion-down": {
