@@ -83,6 +83,7 @@ export interface TaleDetailPlayerProps {
   audioUrl: string;
   taleTitle: string;
   taleDescription: string;
+  voiceType: string;
   author: string;
   isOwner: boolean;
   imageUrl: string;

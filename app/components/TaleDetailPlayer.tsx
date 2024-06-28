@@ -26,6 +26,7 @@ import { useToast } from "@/components/ui/use-toast";
 
 const TaleDetailPlayer = ({
   audioUrl,
+  voiceType,
   taleTitle,
   taleDescription,
   author,
@@ -124,6 +125,9 @@ const TaleDetailPlayer = ({
             <p className="font-medium md:py-0 py-6 max-md:text-center">
               {taleDescription}
             </p>
+            <p className="mt-3">
+              AI voice: <strong className="text-white-1">{voiceType}</strong>
+            </p>
           </article>
 
           <Button
@@ -151,7 +155,7 @@ const TaleDetailPlayer = ({
             onClick={() => setIsEditing((prev) => !prev)}
           />
           {isEditing && (
-            <div className="flex flex-col gap-2 absolute -left-36 -top-1 z-10 w-32">
+            <div className="flex flex-col gap-1 absolute -left-36 -top-1 z-10 w-32">
               <div
                 className="flex cursor-pointer justify-center gap-2 rounded-md bg-black-2 py-1.5 hover:bg-black-3 transition-all duration-500"
                 onClick={() => console.log("edit")}

@@ -50,7 +50,7 @@ const TaleDetails = ({
         </div>
       </div>
       <section className="my-8  flex flex-col gap-5">
-        <h3 className="text-18 text-white-1 font-medium">Similar tales</h3>
+        <h3 className="text-24 font-bold text-white-1">Similar tales</h3>
         {similarTales && similarTales.length > 0 ? (
           <div className="tale_grid">
             {similarTales?.map(
