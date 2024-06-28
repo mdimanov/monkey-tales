@@ -12,6 +12,7 @@
     "@clerk/nextjs": "^5.1.4",
     "@hookform/resolvers": "^3.6.0",
     "@hugeicons/react-pro": "^0.3.2",
+    "@radix-ui/react-alert-dialog": "^1.1.1",
     "@radix-ui/react-dialog": "^1.1.1",
     "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-progress": "^1.1.0",

@@ -8,6 +8,7 @@ import { VOICES } from "../../utils/constants";
 import { useToast } from "@/components/ui/use-toast";
 import GenerateTale from "../../components/GenerateTale";
 import GenerateThumbnail from "../../components/GenerateThumbnail";
+import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -203,11 +204,20 @@ const CreateTale = () => {
               <Button className="text-16 w-full bg-violet-600 py-4 font-bold text-white-1 transition-all duration-500 hover:bg-violet-900">
                 {isSubmitting ? (
                   <>
+                    <Loader size={20} className="animate-spin mr-2" />
                     Submitting
-                    <Loader size={20} className="animate-spin ml-2" />
                   </>
                 ) : (
-                  "Submit & Publish Tale"
+                  <>
+                    <Image
+                      src="/icons/submit.svg"
+                      width={20}
+                      height={20}
+                      alt="log out"
+                      className="mr-2"
+                    />
+                    Submit & Publish Tale
+                  </>
                 )}
               </Button>
             </div>

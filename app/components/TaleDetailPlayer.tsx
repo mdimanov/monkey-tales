@@ -8,6 +8,18 @@ import { api } from "@/convex/_generated/api";
 import { useAudio } from "@/providers/AudioProvider";
 import { TaleDetailPlayerProps } from "@/Types";
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+
 import LoaderSpinner from "./LoaderSpiner";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
@@ -28,7 +40,7 @@ const TaleDetailPlayer = ({
   const router = useRouter();
   const { setAudio } = useAudio();
   const { toast } = useToast();
-  const [isDeleting, setIsDeleting] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
   const deleteTale = useMutation(api.tales.deleteTale);
   const updateViews = useMutation(api.tales.updateTaleViews);
 
@@ -44,7 +56,7 @@ const TaleDetailPlayer = ({
     try {
       await deleteTale({ taleId, imageStorageId, audioStorageId });
       toast({
-        title: "Tale deleted",
+        title: "Tale deleted successfully",
       });
       router.push("/");
     } catch (error) {
@@ -129,27 +141,57 @@ const TaleDetailPlayer = ({
         </div>
       </div>
       {isOwner && (
-        <div className="absolute right-0 md:relative mt-2 mx-2 min-w-5">
+        <div className="absolute md:right-0 md:top-0 md:relative top-2.5 right-2.5 min-w-5">
           <Image
-            src="/icons/three-dots.svg"
-            width={24}
-            height={24}
-            alt="Three dots icon"
-            className="cursor-pointer"
-            onClick={() => setIsDeleting((prev) => !prev)}
+            src="/icons/settings.svg"
+            width={22}
+            height={22}
+            alt="Tale edit icon"
+            className={`cursor-pointer transition-transform duration-300 ${isEditing ? "rotate-45" : ""}`}
+            onClick={() => setIsEditing((prev) => !prev)}
           />
-          {isDeleting && (
-            <div
-              className="absolute -left-36 -top-1 z-10 flex w-32 cursor-pointer justify-center gap-2 rounded-md bg-black-2 py-1.5 hover:bg-purple-1"
-              onClick={handleDelete}
-            >
-              <Image
-                src="/icons/delete.svg"
-                width={14}
-                height={14}
-                alt="Delete icon"
-              />
-              <h2 className="text-sm font-normal text-white-1">Delete</h2>
+          {isEditing && (
+            <div className="flex flex-col gap-2 absolute -left-36 -top-1 z-10 w-32">
+              <div
+                className="flex cursor-pointer justify-center gap-2 rounded-md bg-black-2 py-1.5 hover:bg-black-3 transition-all duration-500"
+                onClick={() => console.log("edit")}
+              >
+                <Image
+                  src="/icons/edit.svg"
+                  width={14}
+                  height={14}
+                  alt="Edit icon"
+                />
+                <p className="text-sm font-normal text-white-1">Edit</p>
+              </div>
+              <AlertDialog>
+                <AlertDialogTrigger>
+                  <div className="flex cursor-pointer justify-center gap-2 rounded-md bg-black-2 py-1.5 hover:bg-red-600 transition-all duration-500">
+                    <Image
+                      src="/icons/delete.svg"
+                      width={14}
+                      height={14}
+                      alt="Delete icon"
+                    />
+                    <p className="text-sm font-normal text-white-1">Delete</p>
+                  </div>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Confirm Delete</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      Are you sure you want to delete this tale? This action
+                      cannot be undone.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction onClick={handleDelete}>
+                      Continue
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             </div>
           )}
         </div>

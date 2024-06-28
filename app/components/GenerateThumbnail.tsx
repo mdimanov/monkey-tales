@@ -192,7 +192,7 @@ const GenerateThumbnail = ({
         </div>
       )}
       {image && (
-        <div className="flex-center w-full">
+        <div className="flex-center w-full py-4">
           <Image src={image} width={600} height={600} alt="image thumbnail" />
         </div>
       )}
