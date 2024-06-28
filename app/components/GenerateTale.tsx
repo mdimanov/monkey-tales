@@ -35,7 +35,7 @@ const useGenerateTale = ({
 
     if (!voicePrompt) {
       toast({
-        title: "Please provide a voice prompt to generate tale",
+        title: "Please provide a text to generate tale",
       });
       return setIsGenerating(false);
     }
@@ -80,7 +80,7 @@ const GenerateTale = (props: GenerateTaleProps) => {
     <div>
       <div className="flex flex-col gap-2.5">
         <Label className="text-sm font-bold text-white-1">
-          AI Prompt to generate Tale
+          Text to generate audio Tale
         </Label>
         <Textarea
           className="input-class"

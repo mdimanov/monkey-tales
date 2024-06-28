@@ -55,6 +55,14 @@ const GenerateThumbnail = ({
   const generateImage = async () => {
     setIsImageLoading(true);
     setImage("");
+
+    if (!imagePrompt) {
+      toast({
+        title: "Please provide a text to generate image",
+      });
+      return setIsImageLoading(false);
+    }
+
     try {
       const response = await handleGenerateThumbnail({
         prompt: imagePrompt,
