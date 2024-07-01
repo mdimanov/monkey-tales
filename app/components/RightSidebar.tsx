@@ -10,6 +10,7 @@ import { useQuery } from "convex/react";
 import { useRouter } from "next/navigation";
 import { api } from "@/convex/_generated/api";
 import LoaderSpiner from "./LoaderSpiner";
+import AuthorCardSkeleton from "./AuthorCardSkeleton";
 
 const RightSidebar = () => {
   const { user } = useUser();
@@ -44,29 +45,33 @@ const RightSidebar = () => {
       <section className="flex flex-col gap-8 pt-12">
         <Header headerTitle="Top authors" />
         <div className="flex flex-col gap-3">
-          {topTaleTellers?.slice(0, 4).map((taleTeller) => (
-            <div
-              key={taleTeller._id}
-              className="flex cursor-pointer justify-between"
-              onClick={() => router.push(`/profile/${taleTeller.clerkId}`)}
-            >
-              <figure className="flex items-center gap-2">
-                <Image
-                  src={taleTeller.imageUrl}
-                  alt={`${taleTeller.name} profile picture`}
-                  width={36}
-                  height={36}
-                  className="aspect-square rounded-lg"
-                />
-                <h3 className="text-sm font-semibold">{taleTeller.name}</h3>
-              </figure>
-              <div className="flex items-center">
-                <p className="text-12 font-normal text-white-1">
-                  {`${taleTeller.totalTales} tale${taleTeller.totalTales !== 1 ? "s" : ""}`}
-                </p>
+          {topTaleTellers ? (
+            topTaleTellers.slice(0, 4).map((taleTeller) => (
+              <div
+                key={taleTeller._id}
+                className="flex cursor-pointer justify-between"
+                onClick={() => router.push(`/profile/${taleTeller.clerkId}`)}
+              >
+                <figure className="flex items-center gap-2">
+                  <Image
+                    src={taleTeller.imageUrl}
+                    alt={`${taleTeller.name} profile picture`}
+                    width={36}
+                    height={36}
+                    className="aspect-square rounded-lg"
+                  />
+                  <h3 className="text-sm font-semibold">{taleTeller.name}</h3>
+                </figure>
+                <div className="flex items-center">
+                  <p className="text-12 font-normal text-white-1">
+                    {`${taleTeller.totalTales} tale${taleTeller.totalTales !== 1 ? "s" : ""}`}
+                  </p>
+                </div>
               </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            <AuthorCardSkeleton count={2} />
+          )}
         </div>
       </section>
     </section>
