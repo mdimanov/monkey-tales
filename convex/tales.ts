@@ -50,12 +50,21 @@ export const createTale = mutation({
     }
 })
 
-export const getTrendingTales = query({
+export const getTales = query({
     handler: async (ctx) => {
        const tales = await ctx.db.query('tales').collect();
        return tales;
     }
 })
+
+export const getTopFourTalesByViews = query({
+  handler: async (ctx) => {
+    const tales = await ctx.db.query('tales').collect();
+    const sortedTales = tales.sort((a, b) => b.views - a.views);
+    const topFourTales = sortedTales.slice(0, 4);
+    return topFourTales;
+  }
+});
 
 export const getTalesById = query({
     args: {

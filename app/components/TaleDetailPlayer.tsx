@@ -2,7 +2,7 @@
 import { useMutation } from "convex/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { api } from "@/convex/_generated/api";
 import { useAudio } from "@/providers/AudioProvider";
@@ -42,6 +42,7 @@ const TaleDetailPlayer = ({
   const { setAudio } = useAudio();
   const { toast } = useToast();
   const [isEditing, setIsEditing] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
   const deleteTale = useMutation(api.tales.deleteTale);
   const updateViews = useMutation(api.tales.updateTaleViews);
 
@@ -70,6 +71,7 @@ const TaleDetailPlayer = ({
   };
 
   const handlePlay = async () => {
+    setIsPlaying(true);
     try {
       await updateViews({ taleId });
       setAudio({
@@ -132,6 +134,7 @@ const TaleDetailPlayer = ({
 
           <Button
             onClick={handlePlay}
+            disabled={isPlaying}
             className="text-16 w-full max-w-[250px] transition-all duration-500 bg-violet-600 hover:bg-violet-800 font-extrabold text-white-1"
           >
             <Image

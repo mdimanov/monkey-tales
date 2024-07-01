@@ -6,7 +6,8 @@ import TaleCard from "../components/TaleCard";
 import { api } from "@/convex/_generated/api";
 
 const Home = () => {
-  const trendingTales = useQuery(api.tales.getTrendingTales);
+  const trendingTales = useQuery(api.tales.getTopFourTalesByViews);
+
   return (
     <div className="flex flex-col gap-6">
       <h1 className="main_title">Trending Tales</h1>
