@@ -35,26 +35,26 @@ const ProfilePage = ({
         />
       </div>
       <section className="mt-9 flex flex-col gap-5">
-        <h1 className="text-20 font-bold text-white-1">All Podcasts</h1>
+        <h1 className="text-20 font-bold text-white-1">All Tales</h1>
         {taleData && taleData.tales.length > 0 ? (
           <div className="tale_grid">
             {taleData?.tales
               ?.slice(0, 4)
-              .map((podcast) => (
+              .map((tale) => (
                 <TaleCard
-                  key={podcast._id}
-                  imgUrl={podcast.imageUrl!}
-                  title={podcast.taleTitle!}
-                  description={podcast.taleDescription}
-                  taleId={podcast._id}
+                  key={tale._id}
+                  imgUrl={tale.imageUrl!}
+                  title={tale.taleTitle!}
+                  description={tale.taleDescription}
+                  taleId={tale._id}
                 />
               ))}
           </div>
         ) : (
           <EmptyState
-            title="You have not created any podcasts yet"
-            buttonLink="/create-podcast"
-            buttonText="Create Podcast"
+            title="You have not created any tales yet"
+            buttonLink="/create-tale"
+            buttonText="Create Tale"
           />
         )}
       </section>

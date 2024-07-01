@@ -1,9 +1,9 @@
 "use client";
 
 import EmptyState from "@/app/components/EmptyState";
-import LoaderSpiner from "@/app/components/LoaderSpiner";
 import Searchbar from "@/app/components/Searchbar";
 import TaleCard from "@/app/components/TaleCard";
+import TaleCardSkeleton from "@/app/components/TaleCardSkeleton";
 import { api } from "@/convex/_generated/api";
 import { useQuery } from "convex/react";
 import React from "react";
@@ -41,7 +41,9 @@ const Discover = ({
             )}
           </>
         ) : (
-          <LoaderSpiner />
+          <div className="tale_grid">
+            <TaleCardSkeleton count={7} />
+          </div>
         )}
       </div>
     </div>
