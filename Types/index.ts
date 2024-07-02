@@ -114,6 +114,15 @@ export interface TaleCardProps {
   taleId: Id<"tales">;
 }
 
+export interface SmallTaleCardProps {
+  imgUrl: string;
+  title: string;
+  author: string;
+  audioDuration: number;
+  views: number;
+  taleId: Id<"tales">;
+}
+
 export interface CarouselProps {
   fansLikeDetail: TopMonkeyTalesProps[];
 }

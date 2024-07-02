@@ -11,11 +11,12 @@ const TaleCardSkeleton: FC<TaleCardSkeletonProps> = ({ count }) => {
     <>
       {Array.from({ length: count }).map((_, index) => (
         <div key={index} className="flex flex-col space-y-3">
-          <Skeleton className="h-[226px] w-[226px] rounded-xl" />
+          <Skeleton className="w-full h-full aspect-square rounded-xl" />
           <div className="space-y-2">
             <Skeleton className="h-4 w-[210px]" />
             <Skeleton className="h-4 w-[180px]" />
           </div>
+          <div className="h-8"></div>
         </div>
       ))}
     </>

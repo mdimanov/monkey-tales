@@ -35,7 +35,7 @@ const RightSidebar = () => {
         </Link>
       </SignedIn>
       <section>
-        <Header headerTitle="Other authors" />
+        <Header headerTitle="Authors most listen tales" />
         {topTaleTellers ? (
           <EmblaCarousel fansLikeDetail={topTaleTellers} />
         ) : (

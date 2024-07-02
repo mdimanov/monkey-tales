@@ -98,8 +98,15 @@ export const getTaleByVoiceType = query({
   });
   
   export const getAllTales = query({
-    handler: async (ctx) => {
-      return await ctx.db.query("tales").order("desc").collect();
+    args: {
+      numTales: v.optional(v.number()),
+    },
+    handler: async (ctx, { numTales }) => {
+      const tales = await ctx.db.query("tales").order("desc").collect();
+      if (numTales !== undefined) {
+        return tales.slice(0, numTales);
+      }
+      return tales;
     },
   });
 
