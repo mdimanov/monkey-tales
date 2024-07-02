@@ -45,7 +45,7 @@ const ProfileCard = ({
           />
           <h2>
             {listeners} &nbsp;
-            <span className="font-normal text-white-2">monthly listeners</span>
+            <span className="font-normal text-white-2">listeners</span>
           </h2>
         </figure>
       </div>

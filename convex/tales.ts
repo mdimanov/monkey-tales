@@ -57,12 +57,15 @@ export const getTales = query({
     }
 })
 
-export const getTopFourTalesByViews = query({
-  handler: async (ctx) => {
+export const getTopTalesByViews = query({
+  args: {
+    numTales: v.number(),
+  },
+  handler: async (ctx, { numTales }) => {
     const tales = await ctx.db.query('tales').collect();
     const sortedTales = tales.sort((a, b) => b.views - a.views);
-    const topFourTales = sortedTales.slice(0, 4);
-    return topFourTales;
+    const topTales = sortedTales.slice(0, numTales);
+    return topTales;
   }
 });
 

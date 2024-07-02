@@ -7,7 +7,7 @@ import { api } from "@/convex/_generated/api";
 import TaleCardSkeleton from "../components/TaleCardSkeleton";
 
 const Home = () => {
-  const trendingTales = useQuery(api.tales.getTopFourTalesByViews);
+  const trendingTales = useQuery(api.tales.getTopTalesByViews, { numTales: 4 });
 
   return (
     <div className="flex flex-col gap-6">
