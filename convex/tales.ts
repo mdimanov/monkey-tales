@@ -142,7 +142,7 @@ export const getTaleByAuthorId = query({
       const authorSearch = await ctx.db
         .query("tales")
         .withSearchIndex("search_author", (q) => q.search("author", args.search))
-        .take(10);
+        .take(3);
   
       if (authorSearch.length > 0) {
         return authorSearch;
@@ -153,7 +153,7 @@ export const getTaleByAuthorId = query({
         .withSearchIndex("search_title", (q) =>
           q.search("taleTitle", args.search)
         )
-        .take(10);
+        .take(3);
   
       if (titleSearch.length > 0) {
         return titleSearch;
@@ -164,7 +164,7 @@ export const getTaleByAuthorId = query({
         .withSearchIndex("search_body", (q) =>
           q.search("taleDescription" || "taleTitle", args.search)
         )
-        .take(10);
+        .take(3);
     },
   });
 

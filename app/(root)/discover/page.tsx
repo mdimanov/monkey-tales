@@ -42,7 +42,7 @@ const Discover = ({
           </>
         ) : (
           <div className="tale_grid">
-            <TaleCardSkeleton count={7} />
+            <TaleCardSkeleton count={8} />
           </div>
         )}
       </div>

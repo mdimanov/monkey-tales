@@ -22,7 +22,10 @@ const SmallTaleCard = ({
   };
 
   return (
-    <div className="cursor-pointer" onClick={handleViews}>
+    <div
+      className="cursor-pointer transition-all duration-500 rounded-xl flex items-center font-semibold border-transparent hover:border-violet-800 hover:bg-lates-focus border-l-4"
+      onClick={handleViews}
+    >
       <figure className="flex w-full justify-between gap-2">
         <div className="flex items-center gap-2">
           <Image
@@ -30,7 +33,7 @@ const SmallTaleCard = ({
             alt={title}
             width={50}
             height={50}
-            className="aspect-square h-fit rounded-xl transition-all duration-500 shadow hover:shadow-purple"
+            className="aspect-square h-fit rounded-xl"
           />
           <div className="flex flex-col min-w-[120px] sm:min-w-[200px]">
             <h2 className="text-14  text-white-1 font-bold truncate">

@@ -41,7 +41,7 @@ const Home = () => {
             See all
           </Link>
         </div>
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2">
           {latesTales ? (
             latesTales.map(
               ({

@@ -24,7 +24,9 @@ const TaleCard = ({ title, description, imgUrl, taleId }: TaleCardProps) => {
           className="aspect-square h-fit w-full rounded-xl transition-all duration-500 shadow hover:shadow-purple"
         />
         <div className="flex flex-col">
-          <h2 className="text-16 pb-2 text-white-1 font-bold">{title}</h2>
+          <h2 className="text-16 pb-2 text-white-1 font-bold truncate">
+            {title}
+          </h2>
           <p className="text-12 text-white-500">{description}</p>
         </div>
       </figure>
