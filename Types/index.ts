@@ -45,6 +45,11 @@ export interface TaleProps {
   views: number;
 }
 
+export interface TalesData {
+  results: TaleProps[];
+  totalCount: number;
+}
+
 export interface ProfileTaleProps {
   tales: TaleProps[];
   listeners: number;
@@ -147,3 +152,6 @@ export type IconProps = {
 export interface SpeechParams {
     voice: 'alloy' | 'echo' | 'fable' | 'onyx' | 'nova' | 'shimmer';
 }
+
+// Number of tales on page (for pagination purpose).
+export const PAGE_SIZE = 8

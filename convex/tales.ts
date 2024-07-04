@@ -133,38 +133,59 @@ export const getTaleByAuthorId = query({
   export const getTaleBySearch = query({
     args: {
       search: v.string(),
+      page: v.optional(v.number()),  // Optional page parameter
     },
     handler: async (ctx, args) => {
+      const pageSize = 8;  // Hardcoded page size
+      const page = args.page || 1;  // Default to 1 if page is not provided
+      
+      let results = [];
+  
       if (args.search === "") {
-        return await ctx.db.query("tales").order("desc").collect();
+        results = await ctx.db.query("tales").order("desc").collect();
+      } else {
+        const authorSearch = await ctx.db
+          .query("tales")
+          .withSearchIndex("search_author", (q) => q.search("author", args.search))
+          .collect();  // Collect all results
+        
+        if (authorSearch.length > 0) {
+          results = authorSearch;
+        } else {
+          const titleSearch = await ctx.db
+            .query("tales")
+            .withSearchIndex("search_title", (q) =>
+              q.search("taleTitle", args.search)
+            )
+            .collect();  // Collect all results
+          
+          if (titleSearch.length > 0) {
+            results = titleSearch;
+          } else {
+            const bodySearch = await ctx.db
+              .query("tales")
+              .withSearchIndex("search_body", (q) =>
+                q.search("taleDescription" || "taleTitle", args.search)
+              )
+              .collect();  // Collect all results
+            
+            results = bodySearch;
+          }
+        }
+      }
+
+      // Calculate total count of results
+      const totalCount = results.length;
+  
+      if (results.length <= pageSize || !args.page) {
+        return { results: results, totalCount: results.length };  // Return all results if less than or equal to pageSize or if no page param is provided
       }
   
-      const authorSearch = await ctx.db
-        .query("tales")
-        .withSearchIndex("search_author", (q) => q.search("author", args.search))
-        .take(3);
+      // Paginate the results
+      const startIndex = (page - 1) * pageSize;
+      const paginatedResults = results.slice(startIndex, startIndex + pageSize);
   
-      if (authorSearch.length > 0) {
-        return authorSearch;
-      }
-  
-      const titleSearch = await ctx.db
-        .query("tales")
-        .withSearchIndex("search_title", (q) =>
-          q.search("taleTitle", args.search)
-        )
-        .take(3);
-  
-      if (titleSearch.length > 0) {
-        return titleSearch;
-      }
-  
-      return await ctx.db
-        .query("tales")
-        .withSearchIndex("search_body", (q) =>
-          q.search("taleDescription" || "taleTitle", args.search)
-        )
-        .take(3);
+      return { results: paginatedResults, totalCount };
     },
   });
 

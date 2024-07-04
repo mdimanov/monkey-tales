@@ -15,7 +15,7 @@ export default function RootLayout({
     <div className="flex flex-col">
       <main className="flex w-full relative">
         <LeftSidebar />
-        <section className="flex min-h-screen flex-1 flex-col pt-2 pb-4 sm:pb-2 px-4 sm:px-14 sm:pt-10">
+        <section className="flex relative min-h-screen flex-1 flex-col pt-2 pb-20 px-4 sm:px-14 sm:pt-10">
           <div className="mx-auto flex w-full max-w-5xl flex-col max-sm:px-4">
             <div className="flex h-16 items-center justify-between md:hidden">
               <Link href="/">
