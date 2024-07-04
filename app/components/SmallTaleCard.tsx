@@ -43,16 +43,16 @@ const SmallTaleCard = ({
           </div>
         </div>
         <div className="flex gap-2 sm:gap-8">
-          <div className="flex items-center justify-end gap-2 min-w-[80px]">
+          <div className="flex items-center justify-end gap-2 min-w-[60px] sm:min-w-[80px]">
             <Image
               src="/icons/headphones.svg"
               width={20}
               height={20}
               alt="headphone"
             />
-            <p>{views}</p>
+            <p className="min-w-[15px] text-right">{views}</p>
           </div>
-          <div className="flex items-center justify-end gap-2 min-w-[80px]">
+          <div className="hidden items-center justify-end gap-2 min-w-[80px] md:flex">
             <Image src="/icons/clock.svg" width={20} height={20} alt="clock" />
             <p className="min-w-[40px] text-right">
               {formatTime(audioDuration)}

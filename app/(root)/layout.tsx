@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Toaster } from "@/components/ui/toaster";
 import TalePlayer from "../components/TalePlayer";
+import MyProfileMobileIcon from "../components/MyProfileMobileIcon";
 
 export default function RootLayout({
   children,
@@ -26,6 +27,7 @@ export default function RootLayout({
                   height={32}
                 />
               </Link>
+              <MyProfileMobileIcon />
               <MobileNav />
             </div>
             <div>
@@ -34,7 +36,6 @@ export default function RootLayout({
             </div>
           </div>
         </section>
-
         <RightSidebar />
       </main>
       <TalePlayer />
