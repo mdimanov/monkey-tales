@@ -41,6 +41,13 @@ const useGenerateTale = ({
       return setIsGenerating(false);
     }
 
+    if (!voiceType) {
+      toast({
+        title: "Please select an AI Voice to generate audio tale",
+      });
+      return setIsGenerating(false);
+    }
+
     try {
       const response = await getTaleAudio({
         voice: voiceType,
