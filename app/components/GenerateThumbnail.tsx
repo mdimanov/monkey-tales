@@ -52,7 +52,8 @@ const GenerateThumbnail = ({
     }
   };
 
-  const generateImage = async () => {
+  const generateImage = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
     setIsImageLoading(true);
     setImage("");
 

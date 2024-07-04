@@ -29,7 +29,8 @@ const useGenerateTale = ({
 
   const getAudioUrl = useMutation(api.tales.getUrl);
 
-  const generateTale = async () => {
+  const generateTale = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
     setIsGenerating(true);
     setAudio("");
 
