@@ -19,18 +19,27 @@ const RightSidebar = () => {
   return (
     <section className="right_sidebar">
       <SignedIn>
-        <Link href={`/profile/${user?.id}`} className="flex gap-3 pb-12">
+        <Link
+          href={`/profile/${user?.id}`}
+          className="relative flex gap-3 pb-12"
+        >
           <UserButton />
           <div className="flex w-full items-center justify-between">
             <h2 className="truncate font-semibold">
               {user?.firstName} {user?.lastName}
             </h2>
-            <Image
-              src="/icons/arrow-right.svg"
-              width={20}
-              height={20}
-              alt="arrow"
-            />
+            <div
+              className="absolute h-[28px] flex items-center justify-end right-0 top-0 transform transition-transform duration-500 hover:translate-x-2"
+              style={{ width: "calc(100% - 28px)" }}
+            >
+              <Image
+                src="/icons/arrow-right.svg"
+                width={20}
+                height={20}
+                className="w-5 h-5 r-0"
+                alt="arrow"
+              />
+            </div>
           </div>
         </Link>
       </SignedIn>
