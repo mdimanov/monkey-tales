@@ -38,17 +38,15 @@ const ProfilePage = ({
         <h1 className="text-20 font-bold text-white-1">All Tales</h1>
         {taleData && taleData.tales.length > 0 ? (
           <div className="tale_grid">
-            {taleData?.tales
-              ?.slice(0, 4)
-              .map((tale) => (
-                <TaleCard
-                  key={tale._id}
-                  imgUrl={tale.imageUrl!}
-                  title={tale.taleTitle!}
-                  description={tale.taleDescription}
-                  taleId={tale._id}
-                />
-              ))}
+            {taleData?.tales?.map((tale) => (
+              <TaleCard
+                key={tale._id}
+                imgUrl={tale.imageUrl!}
+                title={tale.taleTitle!}
+                description={tale.taleDescription}
+                taleId={tale._id}
+              />
+            ))}
           </div>
         ) : (
           <EmptyState
