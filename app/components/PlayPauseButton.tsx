@@ -15,8 +15,8 @@ const PlayPauseButton = ({
       onClick={togglePlayPause}
     >
       <div className="relative w-[30px] h-[30px]">
-        <Icon src="/icons/Pause.svg" isVisible={isPlaying} />
-        <Icon src="/icons/Play.svg" isVisible={!isPlaying} />
+        <Icon src="/icons/pause.svg" isVisible={isPlaying} />
+        <Icon src="/icons/play.svg" isVisible={!isPlaying} />
       </div>
     </div>
   );
