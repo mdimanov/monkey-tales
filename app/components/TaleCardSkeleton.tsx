@@ -13,8 +13,8 @@ const TaleCardSkeleton: FC<TaleCardSkeletonProps> = ({ count }) => {
         <div key={index} className="flex flex-col space-y-3">
           <Skeleton className="w-full h-full aspect-square rounded-xl" />
           <div className="space-y-2">
-            <Skeleton className="h-4 w-[210px]" />
-            <Skeleton className="h-4 w-[180px]" />
+            <Skeleton className="h-4 w-[120px] sm:w-[210px]" />
+            <Skeleton className="h-4 w-[80px] sm:w-[180px]" />
           </div>
           <div className="h-7"></div>
         </div>
