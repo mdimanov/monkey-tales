@@ -11,7 +11,7 @@ import Link from "next/link";
 
 const Home = () => {
   const trendingTales = useQuery(api.tales.getTopTalesByViews, { numTales: 4 });
-  const latesTales = useQuery(api.tales.getAllTales, { numTales: 5 });
+  const latesTales = useQuery(api.tales.getAllTales, { numTales: 6 });
 
   return (
     <div className="flex flex-col gap-6">
@@ -33,7 +33,7 @@ const Home = () => {
       </div>
       <section className="mt-4">
         <div className="flex items-center justify-between pb-5">
-          <h2 className="text-20 font-bold text-white-1">Latest tales</h2>
+          <h2 className="text-20 font-bold text-white-1">Latest Tales</h2>
           <Link
             href="/discover"
             className="text-sm text-purple-2 hover:text-violet-300 transition-all duration-500"
@@ -65,7 +65,7 @@ const Home = () => {
               )
             )
           ) : (
-            <SmallTaleCardSkeleton count={5} />
+            <SmallTaleCardSkeleton count={6} />
           )}
         </div>
       </section>
