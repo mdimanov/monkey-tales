@@ -55,7 +55,7 @@ const RightSidebar = () => {
         <Header headerTitle="Top Authors" />
         <div className="flex flex-col gap-3">
           {topTaleTellers ? (
-            topTaleTellers.slice(0, 4).map((taleTeller) => (
+            topTaleTellers.slice(0, 6).map((taleTeller) => (
               <div
                 key={taleTeller._id}
                 className="flex cursor-pointer justify-between transition-all duration-500 rounded-lg items-center font-semibold border-transparent hover:border-violet-800 hover:bg-lates-focus border-l-4"
