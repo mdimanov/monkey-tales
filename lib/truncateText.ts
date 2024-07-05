@@ -1,7 +1,7 @@
-export const truncateText = (desc: string) => {
-    const words = desc.split(" ");
-    if (words.length > 15) {
-      return words.slice(0, 15).join(" ") + " ...";
+export const truncateText = (text: string, wordsCount: number) => {
+    const words = text.split(" ");
+    if (words.length > wordsCount) {
+      return words.slice(0, wordsCount).join(" ") + " ...";
     }
-    return desc;
+    return text;
   };

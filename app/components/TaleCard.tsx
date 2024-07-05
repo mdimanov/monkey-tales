@@ -27,7 +27,9 @@ const TaleCard = ({ title, description, imgUrl, taleId }: TaleCardProps) => {
           <h2 className="text-16 pb-2 text-white-1 font-bold truncate">
             {title}
           </h2>
-          <p className="text-12 text-white-500">{truncateText(description)}</p>
+          <p className="text-12 text-white-500">
+            {truncateText(description, 15)}
+          </p>
         </div>
       </figure>
     </div>
