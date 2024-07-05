@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import LeftSidebar from "../components/LeftSidebar";
 import RightSidebar from "../components/RightSidebar";
 import MobileNav from "../components/MobileNav";
@@ -6,6 +7,14 @@ import Link from "next/link";
 import { Toaster } from "@/components/ui/toaster";
 import TalePlayer from "../components/TalePlayer";
 import MyProfileMobileIcon from "../components/MyProfileMobileIcon";
+
+export const metadata: Metadata = {
+  title:
+    "MonkeyTales - Create and share your funny audio files using the latest AI technologies",
+  description:
+    "Transform your text prompt into hilarious tales told by a fancy AI voice and entertain your friends with ease!",
+  metadataBase: new URL("https://monkey-tales.vercel.app/"),
+};
 
 export default function RootLayout({
   children,
