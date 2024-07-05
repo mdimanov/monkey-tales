@@ -206,6 +206,26 @@ export const getTaleByAuthorId = query({
     },
   });
 
+  export const editTale = mutation({
+    args: {
+      taleId: v.id("tales"),
+      taleTitle: v.string(),
+      taleDescription: v.string(),
+    },
+    handler: async (ctx, args) => {
+      const tale = await ctx.db.get(args.taleId);
+  
+      if (!tale) {
+        throw new ConvexError("Tale not found");
+      }
+  
+      return await ctx.db.patch(args.taleId, {
+        taleTitle: args.taleTitle,
+        taleDescription: args.taleDescription,
+      });
+    },
+  });
+
   export const deleteTale = mutation({
     args: {
       taleId: v.id("tales"),

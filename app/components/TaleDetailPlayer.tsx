@@ -23,6 +23,8 @@ import {
 import LoaderSpinner from "./LoaderSpiner";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
 const TaleDetailPlayer = ({
   audioUrl,
@@ -43,7 +45,10 @@ const TaleDetailPlayer = ({
   const { toast } = useToast();
   const [isEditing, setIsEditing] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [editedTitle, setEditedTitle] = useState(taleTitle);
+  const [editedDescription, setEditedDescription] = useState(taleDescription);
   const deleteTale = useMutation(api.tales.deleteTale);
+  const editTale = useMutation(api.tales.editTale);
   const updateViews = useMutation(api.tales.updateTaleViews);
 
   const handleDelete = async () => {
@@ -65,6 +70,33 @@ const TaleDetailPlayer = ({
       console.error("Error deleting tale", error);
       toast({
         title: "Error deleting tale",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleEdit = async () => {
+    if (!imageStorageId) {
+      toast({
+        title: "Error deleting tale",
+        variant: "destructive",
+        description: "Missing storage IDs",
+      });
+      return;
+    }
+    try {
+      await editTale({
+        taleId,
+        taleTitle: editedTitle,
+        taleDescription: editedDescription,
+      });
+      toast({
+        title: "Tale edited successfully",
+      });
+    } catch (error) {
+      console.error("Error editing tale", error);
+      toast({
+        title: "Error editing tale",
         variant: "destructive",
       });
     }
@@ -159,18 +191,47 @@ const TaleDetailPlayer = ({
           />
           {isEditing && (
             <div className="flex flex-col gap-1 absolute -left-36 -top-1 z-10 w-32">
-              <div
-                className="flex cursor-pointer justify-center gap-2 rounded-md bg-black-2 py-1.5 hover:bg-black-3 transition-all duration-500"
-                onClick={() => console.log("edit")}
-              >
-                <Image
-                  src="/icons/edit.svg"
-                  width={14}
-                  height={14}
-                  alt="Edit icon"
-                />
-                <p className="text-sm font-normal text-white-1">Edit</p>
-              </div>
+              <AlertDialog>
+                <AlertDialogTrigger>
+                  <div className="flex cursor-pointer justify-center gap-2 rounded-md bg-black-2 py-1.5 hover:bg-black-3 transition-all duration-500">
+                    <Image
+                      src="/icons/edit.svg"
+                      width={14}
+                      height={14}
+                      alt="Edit icon"
+                    />
+                    <p className="text-sm font-normal text-white-1">Edit</p>
+                  </div>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Edit Tale</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      <div className="flex flex-col gap-1">
+                        <Input
+                          className="input-class py-6 focus-visible:ring-offset-violet-600"
+                          placeholder="Title"
+                          value={editedTitle}
+                          onChange={(e) => setEditedTitle(e.target.value)}
+                        />
+                        <Textarea
+                          className="input-class  focus-visible:ring-offset-violet-600"
+                          placeholder="Description"
+                          rows={5}
+                          value={editedDescription}
+                          onChange={(e) => setEditedDescription(e.target.value)}
+                        />
+                      </div>
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction onClick={handleEdit}>
+                      Save
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
               <AlertDialog>
                 <AlertDialogTrigger>
                   <div className="flex cursor-pointer justify-center gap-2 rounded-md bg-black-2 py-1.5 hover:bg-red-600 transition-all duration-500">
