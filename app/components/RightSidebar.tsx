@@ -51,14 +51,14 @@ const RightSidebar = () => {
           <LoaderSpiner />
         )}
       </section>
-      <section className="flex flex-col gap-8 pt-12">
+      <section className="flex flex-col gap-8 pt-12 pb-4">
         <Header headerTitle="Top Authors" />
         <div className="flex flex-col gap-3">
           {topTaleTellers ? (
             topTaleTellers.slice(0, 4).map((taleTeller) => (
               <div
                 key={taleTeller._id}
-                className="flex cursor-pointer justify-between"
+                className="flex cursor-pointer justify-between transition-all duration-500 rounded-lg items-center font-semibold border-transparent hover:border-violet-800 hover:bg-lates-focus border-l-4"
                 onClick={() => router.push(`/profile/${taleTeller.clerkId}`)}
               >
                 <figure className="flex items-center gap-2">
