@@ -11,7 +11,7 @@ import Link from "next/link";
 
 const Home = () => {
   const trendingTales = useQuery(api.tales.getTopTalesByViews, { numTales: 4 });
-  const latesTales = useQuery(api.tales.getAllTales, { numTales: 6 });
+  const latesTales = useQuery(api.tales.getAllTales, { numTales: 5 });
 
   return (
     <div className="flex flex-col gap-6">
