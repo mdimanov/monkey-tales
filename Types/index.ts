@@ -132,6 +132,10 @@ export interface CarouselProps {
   fansLikeDetail: TopMonkeyTalesProps[];
 }
 
+export interface TopTaleTellerCardProps {
+  taleTeller: TopMonkeyTalesProps;
+}
+
 export interface ProfileCardProps {
   imageUrl: string;
   userFirstName: string;

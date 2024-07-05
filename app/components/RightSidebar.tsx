@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import { api } from "@/convex/_generated/api";
 import LoaderSpiner from "./LoaderSpiner";
 import AuthorCardSkeleton from "./AuthorCardSkeleton";
+import TopTaleTellerCard from "./TopTaleTellerCard";
 
 const RightSidebar = () => {
   const { user } = useUser();
@@ -55,29 +56,14 @@ const RightSidebar = () => {
         <Header headerTitle="Top Authors" />
         <div className="flex flex-col gap-3">
           {topTaleTellers ? (
-            topTaleTellers.slice(0, 6).map((taleTeller) => (
-              <div
-                key={taleTeller._id}
-                className="flex cursor-pointer justify-between transition-all duration-500 rounded-lg items-center font-semibold border-transparent hover:border-violet-800 hover:bg-lates-focus border-l-4"
-                onClick={() => router.push(`/profile/${taleTeller.clerkId}`)}
-              >
-                <figure className="flex items-center gap-2">
-                  <Image
-                    src={taleTeller.imageUrl}
-                    alt={`${taleTeller.name} profile picture`}
-                    width={36}
-                    height={36}
-                    className="aspect-square rounded-lg"
-                  />
-                  <h3 className="text-sm font-semibold">{taleTeller.name}</h3>
-                </figure>
-                <div className="flex items-center">
-                  <p className="text-12 font-normal text-white-1">
-                    {`${taleTeller.totalTales} tale${taleTeller.totalTales !== 1 ? "s" : ""}`}
-                  </p>
-                </div>
-              </div>
-            ))
+            topTaleTellers
+              .slice(0, 6)
+              .map((taleTeller) => (
+                <TopTaleTellerCard
+                  key={taleTeller._id}
+                  taleTeller={taleTeller}
+                />
+              ))
           ) : (
             <AuthorCardSkeleton count={2} />
           )}
