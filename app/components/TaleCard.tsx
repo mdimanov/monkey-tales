@@ -2,12 +2,12 @@ import React from "react";
 import Image from "next/image";
 import { TaleCardProps } from "@/Types";
 import { useRouter } from "next/navigation";
+import { truncateText } from "@/lib/truncateText";
 
 const TaleCard = ({ title, description, imgUrl, taleId }: TaleCardProps) => {
   const router = useRouter();
 
   const handleViews = () => {
-    // increase views
     router.push(`/tales/${taleId}`, {
       scroll: true,
     });
@@ -27,7 +27,7 @@ const TaleCard = ({ title, description, imgUrl, taleId }: TaleCardProps) => {
           <h2 className="text-16 pb-2 text-white-1 font-bold truncate">
             {title}
           </h2>
-          <p className="text-12 text-white-500">{description}</p>
+          <p className="text-12 text-white-500">{truncateText(description)}</p>
         </div>
       </figure>
     </div>
