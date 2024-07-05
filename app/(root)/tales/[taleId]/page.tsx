@@ -46,7 +46,7 @@ const TaleDetails = ({
         </div>
         <div className="flex flex-col gap-4">
           <h3 className="text-18 text-white-1 font-medium">Thumbnail prompt</h3>
-          <p>{tale?.imagePrompt}</p>
+          <p>{tale?.imagePrompt ? tale.imagePrompt : "Custom image upload"}</p>
         </div>
       </div>
       <section className="my-8  flex flex-col gap-5">
