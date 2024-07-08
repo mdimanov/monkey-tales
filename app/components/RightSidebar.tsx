@@ -7,7 +7,6 @@ import React from "react";
 import Header from "./Header";
 import EmblaCarousel from "./EmblaCarousel";
 import { useQuery } from "convex/react";
-import { useRouter } from "next/navigation";
 import { api } from "@/convex/_generated/api";
 import LoaderSpiner from "./LoaderSpiner";
 import AuthorCardSkeleton from "./AuthorCardSkeleton";
@@ -15,7 +14,6 @@ import TopTaleTellerCard from "./TopTaleTellerCard";
 
 const RightSidebar = () => {
   const { user } = useUser();
-  const router = useRouter();
   const topTaleTellers = useQuery(api.users.getTopUserByTaleCount);
   return (
     <section className="right_sidebar">
