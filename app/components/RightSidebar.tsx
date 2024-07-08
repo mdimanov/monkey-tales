@@ -65,7 +65,7 @@ const RightSidebar = () => {
                 />
               ))
           ) : (
-            <AuthorCardSkeleton count={2} />
+            <AuthorCardSkeleton count={6} />
           )}
         </div>
       </section>
