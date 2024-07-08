@@ -104,7 +104,7 @@ const TalePlayer = () => {
         className="w-full"
         max={duration}
       />
-      <section className="glassmorphism-black flex h-[112px] w-full items-center justify-between px-4 max-md:justify-center max-md:gap-5 md:px-12">
+      <section className="glassmorphism-black flex h-[112px] w-full items-center justify-between px-6 max-md:gap-5 md:px-12">
         <audio
           ref={audioRef}
           src={audio?.audioUrl}
@@ -112,7 +112,7 @@ const TalePlayer = () => {
           onLoadedMetadata={handleLoadedMetadata}
           onEnded={handleAudioEnded}
         />
-        <div className="flex items-center gap-4 max-md:hidden">
+        <div className="flex items-center gap-4">
           <Link href={`/tales/${audio?.taleId}`}>
             <Image
               src={audio?.imageUrl! || "/images/no-photo-available.png"}
@@ -122,8 +122,8 @@ const TalePlayer = () => {
               className="aspect-square rounded-xl"
             />
           </Link>
-          <div className="flex w-[160px] flex-col">
-            <h2 className="text-14 truncate font-semibold text-white-1">
+          <div className="flex w-[180px] flex-col max-md:hidden">
+            <h2 className="text-14 font-semibold text-white-1">
               {audio?.title}
             </h2>
             <p className="text-12 font-normal text-white-2">{audio?.author}</p>
@@ -155,7 +155,7 @@ const TalePlayer = () => {
             />
           </div>
         </div>
-        <div className="flex items-center gap-6">
+        <div className="flex md:w-[260px] w-[64px] items-center justify-end gap-6">
           <h2 className="text-16 font-normal text-white-2 max-md:hidden">
             {formatTime(duration)}
           </h2>
