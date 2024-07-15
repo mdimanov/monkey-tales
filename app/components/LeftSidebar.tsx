@@ -46,7 +46,7 @@ const LeftSidebar = () => {
               href={route}
               key={label}
               className={cn(
-                "flex items-center py-2 font-semibold text-slate-400 border-violet-800 transition-colors duration-300",
+                "flex items-center py-2 font-semibold text-slate-400 border-violet-800 transition-colors duration-300 hover:text-slate-50",
                 {
                   "bg-nav-focus text-slate-50 border-r-4": isActive,
                 }
