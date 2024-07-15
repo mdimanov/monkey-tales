@@ -66,8 +66,8 @@ const LeftSidebar = () => {
       </nav>
       <SignedOut>
         <div className="flex-center w-full pb-14 max-lg:px-4 lg:pr-8">
-          <Button className="text-16 w-full transition-all duration-500 bg-violet-600 hover:bg-violet-800 font-extrabold text-white-1">
-            <Link href="/sign-in" className="flex">
+          <Link href="/sign-in" className="flex w-full">
+            <Button className="text-16 w-full transition-all duration-500 bg-violet-600 hover:bg-violet-800 font-extrabold text-white-1">
               <Image
                 src="/icons/signin.svg"
                 width={20}
@@ -75,8 +75,8 @@ const LeftSidebar = () => {
                 alt="Sign in icon for button in left sidebar"
               />
               &nbsp; Sign In
-            </Link>
-          </Button>
+            </Button>
+          </Link>
         </div>
       </SignedOut>
       <SignedIn>
