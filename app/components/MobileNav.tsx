@@ -98,7 +98,7 @@ const MobileNav = () => {
                     src="/icons/signin.svg"
                     width={20}
                     height={20}
-                    alt="sign in"
+                    alt="Sign in icon for button in mobile navigation"
                   />
                   &nbsp; Sign In
                 </Link>

@@ -72,7 +72,7 @@ const LeftSidebar = () => {
                 src="/icons/signin.svg"
                 width={20}
                 height={20}
-                alt="sign in"
+                alt="Sign in icon for button in left sidebar"
               />
               &nbsp; Sign In
             </Link>
