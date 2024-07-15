@@ -62,6 +62,7 @@ export const DotButton: React.FC<DotButtonProps> = ({ selected, onClick }) => {
     <button
       type="button"
       onClick={onClick}
+      aria-label="Authors carousel button"
       className={cn(
         "size-2.5 bg-white-3 cursor-pointer transition-all duration-500 rounded-full",
         {
