@@ -18,7 +18,7 @@ const TopTaleTellerCard = ({ taleTeller }: TopTaleTellerCardProps) => {
           alt={`${taleTeller.name} profile picture`}
           width={36}
           height={36}
-          className="aspect-square rounded-lg"
+          className="aspect-square object-cover rounded-lg"
         />
         <h3 className="text-sm font-semibold">{taleTeller.name}</h3>
       </figure>

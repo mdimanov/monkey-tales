@@ -33,7 +33,7 @@ const SmallTaleCard = ({
             alt={title}
             width={50}
             height={50}
-            className="aspect-square h-fit rounded-xl"
+            className="aspect-square object-cover h-fit rounded-xl"
           />
           <div className="flex flex-col min-w-[120px] sm:min-w-[200px]">
             <h2 className="text-14  text-white-1 font-bold truncate">

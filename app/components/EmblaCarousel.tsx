@@ -49,7 +49,7 @@ const EmblaCarousel = ({ fansLikeDetail }: CarouselProps) => {
               width={300}
               height={300}
               priority={true}
-              className="absolute size-full border-none"
+              className="absolute aspect-square object-cover size-full border-none"
             />
             <div className="bg-slate-900/50 relative z-10 flex flex-col p-4">
               <h3 className="text-sm truncate font-semibold text-white-1">
