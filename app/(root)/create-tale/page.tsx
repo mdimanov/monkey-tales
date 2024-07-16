@@ -135,10 +135,7 @@ const CreateTale = () => {
               <Label className="text-16 font-bold text-white-1">
                 Select AI Voice
               </Label>
-              <Select
-                onValueChange={(value) => setVoiceType(value)}
-                aria-label="Select AI Voice"
-              >
+              <Select onValueChange={(value) => setVoiceType(value)}>
                 <SelectTrigger
                   className={cn(
                     "text-16 w-full border-none bg-black-2 text-gray-1"
