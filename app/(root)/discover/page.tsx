@@ -33,11 +33,12 @@ const Discover = ({
             <>
               <div className="tale_grid">
                 {results.map(
-                  ({ _id, taleTitle, taleDescription, imageUrl }) => (
+                  ({ _id, taleTitle, taleDescription, imageUrl, views }) => (
                     <TaleCard
                       key={_id}
                       taleId={_id}
                       title={taleTitle}
+                      views={views}
                       description={taleDescription}
                       imgUrl={imageUrl ?? ""}
                     />

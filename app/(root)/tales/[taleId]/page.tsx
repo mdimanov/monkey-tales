@@ -54,11 +54,12 @@ const TaleDetails = ({
         {similarTales && similarTales.length > 0 ? (
           <div className="tale_grid">
             {similarTales?.map(
-              ({ _id, taleTitle, taleDescription, imageUrl }) => (
+              ({ _id, taleTitle, taleDescription, views, imageUrl }) => (
                 <TaleCard
                   key={_id}
                   taleId={_id}
                   title={taleTitle}
+                  views={views}
                   description={taleDescription}
                   imgUrl={imageUrl}
                 />

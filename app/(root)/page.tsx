@@ -18,15 +18,18 @@ const Home = () => {
       <h1 className="main_title">Trending Tales</h1>
       <div className="tale_grid">
         {trendingTales ? (
-          trendingTales.map(({ _id, taleTitle, taleDescription, imageUrl }) => (
-            <TaleCard
-              key={_id}
-              taleId={_id}
-              title={taleTitle}
-              description={taleDescription}
-              imgUrl={imageUrl}
-            />
-          ))
+          trendingTales.map(
+            ({ _id, taleTitle, taleDescription, imageUrl, views }) => (
+              <TaleCard
+                key={_id}
+                taleId={_id}
+                title={taleTitle}
+                views={views}
+                description={taleDescription}
+                imgUrl={imageUrl}
+              />
+            )
+          )
         ) : (
           <TaleCardSkeleton count={4} />
         )}

@@ -115,6 +115,7 @@ export interface AudioContextType {
 export interface TaleCardProps {
   imgUrl: string;
   title: string;
+  views: number;
   description: string;
   taleId: Id<"tales">;
 }

@@ -49,6 +49,7 @@ const ProfilePage = ({
                 key={tale._id}
                 imgUrl={tale.imageUrl!}
                 title={tale.taleTitle!}
+                views={tale.views}
                 description={tale.taleDescription}
                 taleId={tale._id}
               />
