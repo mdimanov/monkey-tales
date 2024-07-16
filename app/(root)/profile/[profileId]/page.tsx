@@ -7,6 +7,7 @@ import LoaderSpiner from "@/app/components/LoaderSpiner";
 import TaleCard from "@/app/components/TaleCard";
 import ProfileCard from "@/app/components/ProfileCard";
 import { api } from "@/convex/_generated/api";
+import { useUser } from "@clerk/nextjs";
 
 const ProfilePage = ({
   params,
@@ -15,6 +16,7 @@ const ProfilePage = ({
     profileId: string;
   };
 }) => {
+  const { user: loggedUser } = useUser();
   const user = useQuery(api.users.getUserById, {
     clerkId: params.profileId,
   });
@@ -22,11 +24,15 @@ const ProfilePage = ({
     authorId: params.profileId,
   });
 
+  const isMyProfile = loggedUser?.id === params.profileId;
+
   if (!user || !taleData) return <LoaderSpiner />;
 
   return (
     <section className="flex w-full flex-col">
-      <h1 className="text-24 font-bold text-slate-50">Taleteller Profile</h1>
+      <h1 className="text-24 font-bold text-slate-50">
+        {isMyProfile ? "My" : "Author"} Profile
+      </h1>
       <div className="flex flex-col gap-6 max-md:items-center md:flex-row">
         <ProfileCard
           imageUrl={user?.imageUrl!}
