@@ -141,6 +141,8 @@ export interface ProfileCardProps {
   imageUrl: string;
   userFirstName: string;
   listeners: number;
+  tales: number;
+  mostListenedTaleTitle: string;
 }
 
 export type UseDotButtonType = {

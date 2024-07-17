@@ -28,6 +28,10 @@ const ProfilePage = ({
 
   if (!user || !taleData) return <LoaderSpiner />;
 
+  const sortedTales = taleData.tales.sort((a, b) => b.views - a.views);
+  const mostListenedTaleTitle =
+    sortedTales.length > 0 ? sortedTales[0].taleTitle : "No Tales Available";
+
   return (
     <section className="flex w-full flex-col">
       <h1 className="text-24 font-bold text-slate-50">
@@ -38,6 +42,8 @@ const ProfilePage = ({
           imageUrl={user?.imageUrl!}
           userFirstName={user?.name!}
           listeners={taleData.listeners}
+          tales={taleData.tales.length}
+          mostListenedTaleTitle={mostListenedTaleTitle}
         />
       </div>
       <section className="mt-9 flex flex-col gap-5">

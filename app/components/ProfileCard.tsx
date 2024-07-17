@@ -7,6 +7,8 @@ const ProfileCard = ({
   imageUrl,
   userFirstName,
   listeners,
+  tales,
+  mostListenedTaleTitle,
 }: ProfileCardProps) => {
   if (!imageUrl) return <LoaderSpiner />;
 
@@ -14,8 +16,8 @@ const ProfileCard = ({
     <div className="mt-6 flex flex-col gap-6 max-md:items-center md:flex-row">
       <Image
         src={imageUrl}
-        width={300}
-        height={300}
+        width={200}
+        height={200}
         alt="Profile image"
         className="aspect-square object-cover rounded-lg"
       />
@@ -35,8 +37,12 @@ const ProfileCard = ({
           <h1 className="text-32 font-extrabold tracking-[-0.32px] text-white-1">
             {userFirstName}
           </h1>
+          <p>
+            <strong className="text-white-1">Most listen tale:</strong>{" "}
+            {mostListenedTaleTitle}
+          </p>
         </div>
-        <figure className="flex gap-3 py-6">
+        <figure className="flex gap-3 pt-6 pb-2">
           <Image
             src="/icons/headphones.svg"
             width={20}
@@ -46,6 +52,13 @@ const ProfileCard = ({
           <h2>
             {listeners} &nbsp;
             <span className="font-normal text-white-2">listeners</span>
+          </h2>
+        </figure>
+        <figure className="flex gap-3">
+          <Image src="/icons/tale.svg" width={20} height={20} alt="headphone" />
+          <h2>
+            {tales} &nbsp;
+            <span className="font-normal text-white-2">tales</span>
           </h2>
         </figure>
       </div>
