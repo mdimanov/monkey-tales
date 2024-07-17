@@ -37,6 +37,7 @@ const config = {
         purple: {
           1: "#5B21B6",
           2: "#A78BFA",
+          3: "#46298b",
         },
         gray: {
           1: "#71788B",

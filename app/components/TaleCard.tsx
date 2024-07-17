@@ -30,7 +30,7 @@ const TaleCard = ({
             height={200}
             className="aspect-square h-fit w-full rounded-xl transition-all duration-500 shadow group-hover:shadow-purple"
           />
-          <div className="absolute bottom-0 left-0 bg-violet-900 transition-all duration-500 rounded-tr-xl opacity-0 group-hover:opacity-100">
+          <div className="absolute bottom-0 left-0 bg-purple-3 transition-all duration-500 rounded-tr-xl rounded-bl-md  opacity-0 group-hover:opacity-100">
             <div className="flex items-end gap-2 h-5 min-w-[60px] sm:min-w-[80px] px-4">
               <Image
                 src="/icons/headphones.svg"
