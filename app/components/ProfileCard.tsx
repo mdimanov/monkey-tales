@@ -14,8 +14,8 @@ const ProfileCard = ({
     <div className="mt-6 flex flex-col gap-6 max-md:items-center md:flex-row">
       <Image
         src={imageUrl}
-        width={250}
-        height={250}
+        width={300}
+        height={300}
         alt="Profile image"
         className="aspect-square object-cover rounded-lg"
       />
