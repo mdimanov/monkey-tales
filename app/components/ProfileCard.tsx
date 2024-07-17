@@ -13,16 +13,16 @@ const ProfileCard = ({
   if (!imageUrl) return <LoaderSpiner />;
 
   return (
-    <div className="mt-6 flex flex-col gap-6 max-md:items-center md:flex-row">
+    <div className="mt-6 w-full flex flex-col gap-6 max-md:items-center md:flex-row">
       <Image
         src={imageUrl}
-        width={200}
-        height={200}
+        width={270}
+        height={270}
         alt="Profile image"
-        className="aspect-square object-cover rounded-lg"
+        className="aspect-square object-cover rounded-xl"
       />
-      <div className="flex flex-col max-md:items-center">
-        <div className="flex flex-col gap-2.5">
+      <div className="flex w-full flex-col max-md:items-center">
+        <div className="flex w-full flex-col gap-2.5">
           <figure className="flex gap-2 max-md:justify-center">
             <Image
               src="/icons/verified.png"
@@ -42,7 +42,7 @@ const ProfileCard = ({
             {mostListenedTaleTitle}
           </p>
         </div>
-        <figure className="flex gap-3 pt-6 pb-2">
+        <figure className="flex w-full gap-3 pt-6 pb-2">
           <Image
             src="/icons/headphones.svg"
             width={20}
@@ -54,7 +54,7 @@ const ProfileCard = ({
             <span className="font-normal text-white-2">listeners</span>
           </h2>
         </figure>
-        <figure className="flex gap-3">
+        <figure className="flex w-full gap-3">
           <Image src="/icons/tale.svg" width={20} height={20} alt="headphone" />
           <h2>
             {tales} &nbsp;
