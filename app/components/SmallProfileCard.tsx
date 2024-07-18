@@ -40,11 +40,11 @@ const SmallProfileCard = ({
               Verified Creator
             </h2>
           </figure>
-          <h1 className="text-32 font-extrabold tracking-[-0.32px] text-white-1">
+          <h1 className="text-16 md:text-24 text-center md:text-left font-extrabold tracking-[-0.32px] text-white-1">
             {userFirstName}
           </h1>
         </div>
-        <figure className="flex w-full gap-3 mt-3">
+        <figure className="flex w-full justify-center md:justify-start gap-3 mt-3">
           <Image src="/icons/tale.svg" width={20} height={20} alt="headphone" />
           <h2>
             {tales} &nbsp;
