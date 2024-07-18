@@ -149,6 +149,7 @@ export interface SmallProfileCardProps {
   imageUrl: string;
   userFirstName: string;
   tales: number;
+  clerkId: string;
 }
 
 export type UseDotButtonType = {

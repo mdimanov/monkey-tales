@@ -21,6 +21,7 @@ const Authors = () => {
                 imageUrl={taleTeller?.imageUrl!}
                 userFirstName={taleTeller?.name!}
                 tales={taleTeller.tale.length}
+                clerkId={taleTeller.clerkId}
               />
             ))
         ) : (
