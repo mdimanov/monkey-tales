@@ -145,6 +145,12 @@ export interface ProfileCardProps {
   mostListenedTaleTitle: string;
 }
 
+export interface SmallProfileCardProps {
+  imageUrl: string;
+  userFirstName: string;
+  tales: number;
+}
+
 export type UseDotButtonType = {
   selectedIndex: number;
   scrollSnaps: number[];
