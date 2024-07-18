@@ -17,7 +17,7 @@ const SmallProfileCard = ({
 
   return (
     <div
-      className="mt-6 w-full cursor-pointer transition-all duration-500 rounded-xl border-transparent hover:border-violet-800 hover:bg-lates-focus border-l-4 flex flex-col gap-6 max-md:items-center md:flex-row"
+      className="w-full cursor-pointer transition-all duration-500 rounded-xl border-transparent hover:border-violet-800 hover:bg-lates-focus border-l-4 flex flex-col gap-3 md:gap-6 max-md:items-center md:flex-row"
       onClick={() => router.push(`/profile/${clerkId}`)}
     >
       <Image
@@ -44,7 +44,7 @@ const SmallProfileCard = ({
             {userFirstName}
           </h1>
         </div>
-        <figure className="flex w-full justify-center md:justify-start gap-3 mt-3">
+        <figure className="flex w-full justify-center md:justify-start gap-3 mt-1 md:mt-3">
           <Image src="/icons/tale.svg" width={20} height={20} alt="headphone" />
           <h2>
             {tales} &nbsp;
