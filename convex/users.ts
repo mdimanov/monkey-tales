@@ -48,6 +48,43 @@ export const getTopUserByTaleCount = query({
   },
 });
 
+export const getAuthorsBySearch = query({
+  args: {
+    search: v.string(),
+  },
+  handler: async (ctx, args) => {
+    let users = [];
+
+    if (args.search === "") {
+      users = await ctx.db.query("users").collect();
+    } else {
+      users = await ctx.db
+        .query("users")
+        .withSearchIndex("search_name", (q) => q.search("name", args.search))
+        .collect();
+    }
+
+    const userData = await Promise.all(
+      users.map(async (u) => {
+        const tales = await ctx.db
+          .query("tales")
+          .filter((q) => q.eq(q.field("authorId"), u.clerkId))
+          .collect();
+
+        return {
+          ...u,
+          totalTales: tales.length,
+        };
+      })
+    );
+
+    // Sort userData alphabetically by the authors' names
+    const sortedUserData = userData.sort((a, b) => a.name.localeCompare(b.name));
+
+    return { results: sortedUserData };
+  },
+});
+
 export const createUser = internalMutation({
   args: {
     clerkId: v.string(),

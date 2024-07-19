@@ -50,6 +50,10 @@ export interface TalesData {
   totalCount: number;
 }
 
+export interface AuthorsData {
+  results: AuthorsProps[];
+}
+
 export interface ProfileTaleProps {
   tales: TaleProps[];
   listeners: number;
@@ -143,6 +147,18 @@ export interface ProfileCardProps {
   listeners: number;
   tales: number;
   mostListenedTaleTitle: string;
+}
+
+export interface AuthorsProps {
+  imageUrl: string;
+  userFirstName: string;
+  tales: number;
+  clerkId: string;
+  totalTales: number;
+  _id: Id<"users">;
+  _creationTime: number;
+  email: string;
+  name: string;
 }
 
 export interface SmallProfileCardProps {

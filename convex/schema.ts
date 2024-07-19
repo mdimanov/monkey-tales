@@ -28,4 +28,5 @@ export default defineSchema({
         clerkId: v.string(),
         name: v.string(),
     })
+    .searchIndex('search_name', { searchField: 'name' })
 })

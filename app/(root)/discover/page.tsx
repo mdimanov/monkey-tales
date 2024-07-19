@@ -8,6 +8,7 @@ import { api } from "@/convex/_generated/api";
 import { TalesData, PAGE_SIZE } from "@/Types/index";
 import { useQuery } from "convex/react";
 import PagePagination from "@/app/components/PagePagination";
+import { SearchPaths } from "@/app/utils/constants";
 
 const Discover = ({
   searchParams: { search = "", page = "1" },
@@ -26,7 +27,7 @@ const Discover = ({
   return (
     <div className="flex flex-col gap-6">
       <h1 className="main_title">Discover</h1>
-      <Searchbar />
+      <Searchbar searchPath={SearchPaths.Discover} />
       {talesData ? (
         <>
           {totalCount > 0 ? (
