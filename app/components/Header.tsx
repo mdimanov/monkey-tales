@@ -1,12 +1,12 @@
 import React from "react";
-import { cn } from "@/lib/utils";
 import Link from "next/link";
 
 const Header = ({
   headerTitle,
+  pageUrl,
 }: {
   headerTitle?: string;
-  titleClassName?: string;
+  pageUrl?: string;
 }) => {
   return (
     <header className="flex items-center justify-between pb-2">
@@ -16,7 +16,7 @@ const Header = ({
         <div />
       )}
       <Link
-        href="/discover"
+        href={pageUrl ? pageUrl : "/"}
         className="text-sm text-purple-2 hover:text-violet-300 transition-all duration-500"
       >
         See all

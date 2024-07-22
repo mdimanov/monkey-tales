@@ -43,7 +43,7 @@ const RightSidebar = () => {
         </Link>
       </SignedIn>
       <section>
-        <Header headerTitle="Authors Most Listen Tales" />
+        <Header headerTitle="Authors Most Listen Tales" pageUrl="/discover" />
         {topTaleTellers ? (
           <EmblaCarousel fansLikeDetail={topTaleTellers} />
         ) : (
@@ -51,7 +51,7 @@ const RightSidebar = () => {
         )}
       </section>
       <section className="flex flex-col gap-8 pt-12 pb-4">
-        <Header headerTitle="Top Authors" />
+        <Header headerTitle="Top Authors" pageUrl="/authors" />
         <div className="flex flex-col gap-3">
           {topTaleTellers ? (
             topTaleTellers
