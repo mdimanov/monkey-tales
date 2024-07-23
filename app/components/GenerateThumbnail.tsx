@@ -24,6 +24,8 @@ const GenerateThumbnail = ({
 }: GenerateThumbnailProps) => {
   const [isAiThumbnail, setIsAiThumbnail] = useState(true);
   const [isImageLoading, setIsImageLoading] = useState(false);
+  const [generatedImages, setGeneratedImages] = useState<string[]>([]);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const imageRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
   const generateUploadUrl = useMutation(api.files.generateUploadUrl);
@@ -41,6 +43,16 @@ const GenerateThumbnail = ({
       setImageStorageId(storageId);
 
       const imageUrl = await getImageUrl({ storageId });
+      setGeneratedImages((prevImages) => {
+        const newImages = [...prevImages, imageUrl!];
+        if (newImages.length === 5) {
+          toast({
+            title: "You have reached the limit of 5 images",
+          });
+        }
+        return newImages;
+      });
+      setSelectedImage(imageUrl!);
       setImage(imageUrl!);
       setIsImageLoading(false);
       toast({
@@ -54,6 +66,7 @@ const GenerateThumbnail = ({
 
   const generateImage = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
+
     setIsImageLoading(true);
     setImage("");
 
@@ -75,6 +88,7 @@ const GenerateThumbnail = ({
       toast({ title: "Error generating thumbnail", variant: "destructive" });
     }
   };
+
   const uploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
 
@@ -89,6 +103,11 @@ const GenerateThumbnail = ({
       console.log(error);
       toast({ title: "Error uploading image", variant: "destructive" });
     }
+  };
+
+  const selectImage = (image: string) => {
+    setSelectedImage(image);
+    setImage(image);
   };
 
   return (
@@ -129,6 +148,7 @@ const GenerateThumbnail = ({
             <Button
               className="text-16 bg-black-2 py-4 font-bold text-white-1 transition-all duration-500 hover:bg-black-3"
               onClick={generateImage}
+              disabled={generatedImages.length >= 5}
             >
               {isImageLoading ? (
                 <>
@@ -157,6 +177,65 @@ const GenerateThumbnail = ({
               )}
             </Button>
           </div>
+          <p>
+            <strong className="text-white-1">Note:</strong> You can generate up
+            to 5 images in total.
+          </p>
+          <div className="flex flex-wrap gap-4 mt-4">
+            {Array.from({ length: 5 }).map((_, index) => (
+              <div
+                key={index}
+                className={cn(
+                  "relative flex items-center justify-center w-24 h-24",
+                  {
+                    "rounded-lg border-2 border-dashed border-gray-500":
+                      !generatedImages[index],
+                    "cursor-pointer": generatedImages[index], // Remove border if there's an image
+                  }
+                )}
+                onClick={() => {
+                  if (generatedImages[index]) {
+                    selectImage(generatedImages[index]);
+                  }
+                }}
+              >
+                {generatedImages[index] ? (
+                  <Image
+                    src={generatedImages[index]}
+                    width={96}
+                    height={96}
+                    alt={`generated thumbnail ${index + 1}`}
+                    className="rounded-lg"
+                  />
+                ) : (
+                  <div className="text-center text-gray-500 text-xl">
+                    {index + 1}
+                  </div>
+                )}
+                {selectedImage === generatedImages[index] && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-black-1 bg-opacity-50">
+                    <Image
+                      src="/icons/check.svg"
+                      alt="selected"
+                      width={42}
+                      height={42}
+                    />
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+          {selectedImage && (
+            <div className="flex-center w-full py-4">
+              <Image
+                src={selectedImage}
+                width={600}
+                height={600}
+                alt="image thumbnail"
+                className="rounded-xl"
+              />
+            </div>
+          )}
         </div>
       ) : (
         <div
@@ -190,11 +269,6 @@ const GenerateThumbnail = ({
               SVG, PNG, JPG or GIF (max. 1080x1080px)
             </p>
           </div>
-        </div>
-      )}
-      {image && (
-        <div className="flex-center w-full py-4">
-          <Image src={image} width={600} height={600} alt="image thumbnail" />
         </div>
       )}
     </>
