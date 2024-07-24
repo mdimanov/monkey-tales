@@ -23,7 +23,7 @@ const Authors = ({
     <div className="flex flex-col gap-4 md:gap-6">
       <h1 className="main_title">Authors</h1>
       <Searchbar searchPath={SearchPaths.Authors} />
-      <div className="grid grid-cols-2 md:grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {authorsData ? (
           results
             .slice(0, 6)

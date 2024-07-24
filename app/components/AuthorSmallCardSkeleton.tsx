@@ -13,16 +13,11 @@ const AuthorSmallCardSkeleton: FC<AuthorCardSkeletonProps> = ({ count }) => {
           key={index}
           className="flex w-full items-center justify-center md:justify-between space-x-3"
         >
-          <div className="flex flex-col md:flex-row items-start mb-6 md:mb-0 gap-3 md:gap-6">
-            <Skeleton className="h-[130px] w-[130px] rounded-xl" />
-            <div className="flex flex-col items-center md:items-start gap-2 md:gap-4">
-              <div className="flex justify-center md:justify-start items-center gap-2">
-                <Skeleton className="h-5 rounded-full w-5" />
-                <Skeleton className="h-2 w-[25px] md:w-[45px] md:block hidden" />
-                <Skeleton className="h-2 w-[45px] md:w-[65px]" />
-              </div>
-              <Skeleton className="h-5 w-[115px] md:w-[165px]" />
-              <Skeleton className="h-3 w-[45px] md:w-[95px]" />
+          <div className="flex flex-col items-center md:items-start md:flex-row mb-6 md:mb-0 gap-3 md:gap-4">
+            <Skeleton className="h-[90px] w-[90px] rounded-xl" />
+            <div className="flex flex-col items-center md:items-start gap-2 md:gap-4 mt-3">
+              <Skeleton className="h-4 w-[115px] md:w-[145px]" />
+              <Skeleton className="h-2 w-[45px] md:w-[85px]" />
             </div>
           </div>
         </div>
