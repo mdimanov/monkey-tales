@@ -36,7 +36,7 @@ const Searchbar: FC<SearchbarProps> = ({ searchPath }) => {
         : "Search"; // Default placeholder if needed
 
   return (
-    <div className="relative block">
+    <div className="relative block w-full">
       <Input
         className="input-class py-6 pl-12 focus-visible:ring-offset-violet-600"
         placeholder={placeholderText}

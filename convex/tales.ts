@@ -133,12 +133,15 @@ export const getTaleByAuthorId = query({
   export const getTaleBySearch = query({
     args: {
       search: v.string(),
-      page: v.optional(v.number()),  // Optional page parameter
+      // Optional page parameters
+      page: v.optional(v.number()),  
+      sort: v.optional(v.string()),  
     },
     handler: async (ctx, args) => {
       const pageSize = 8;  // Hardcoded page size
       const page = args.page || 1;  // Default to 1 if page is not provided
-      
+      const sort = args.sort || "date"; // Default sort to "date" if not provided
+
       let results = [];
   
       if (args.search === "") {
@@ -172,6 +175,17 @@ export const getTaleByAuthorId = query({
             results = bodySearch;
           }
         }
+      }
+
+      // Sort the results based on the sort parameter
+      if (sort === "date") {
+        results.sort((a, b) => b._creationTime - a._creationTime); // Sort by creation time descending
+      } else if (sort === "views") {
+        results.sort((a, b) => b.views - a.views); // Sort by views descending
+      } else if (sort === "AZ") {
+        results.sort((a, b) => a.taleTitle.localeCompare(b.taleTitle)); // Sort by title A-Z
+      } else if (sort === "ZA") {
+        results.sort((a, b) => b.taleTitle.localeCompare(a.taleTitle)); // Sort by title Z-A
       }
 
       // Calculate total count of results
