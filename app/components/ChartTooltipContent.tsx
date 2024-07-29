@@ -3,6 +3,7 @@ import { TooltipProps } from "recharts";
 const ChartTooltipContent = ({ active, payload }: TooltipProps<any, any>) => {
   if (active && payload && payload.length) {
     const usageCount = payload[0].value;
+    const voiceType = payload[0].payload.voiceType;
     const timeText = usageCount === 1 ? "time" : "times";
     return (
       <div
@@ -14,7 +15,7 @@ const ChartTooltipContent = ({ active, payload }: TooltipProps<any, any>) => {
           color: "#fff",
         }}
       >
-        <p className="label">{`Used ${usageCount} ${timeText}`}</p>
+        <p className="label">{`AI voice ${voiceType} is used ${usageCount} ${timeText}`}</p>
       </div>
     );
   }

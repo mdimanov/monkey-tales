@@ -110,15 +110,19 @@ const StatisticsPage = () => {
         className="min-h-[200px] max-h-[380px] w-full"
       >
         <BarChart accessibilityLayer data={voiceUsage}>
-          <YAxis />
+          <div className="hidden sm:block">
+            <YAxis />
+          </div>
           <Bar dataKey="usage" fill="var(--color-usage)" radius={4}>
             <LabelList dataKey="usage" position="top" />
-            <LabelList
-              dataKey="voiceType"
-              position="insideBottom"
-              offset={10}
-              style={{ fill: "white", fontSize: "16px" }}
-            />
+            <div className="hidden sm:block">
+              <LabelList
+                dataKey="voiceType"
+                position="insideBottom"
+                offset={10}
+                style={{ fill: "white", fontSize: "16px" }}
+              />
+            </div>
           </Bar>
           <ChartTooltip content={<ChartTooltipContent />} />
         </BarChart>
