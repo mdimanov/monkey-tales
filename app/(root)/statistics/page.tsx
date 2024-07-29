@@ -7,6 +7,7 @@ import { ChartConfig, ChartContainer } from "@/components/ui/chart";
 import LoaderSpiner from "@/app/components/LoaderSpiner";
 import { TaleProps } from "@/Types";
 import { formatDuration } from "@/lib/formatTime";
+import StatsCard from "@/app/components/StatsCard";
 
 const StatisticsPage = () => {
   const allTales = useQuery(api.tales.getAllTales, {});
@@ -55,80 +56,49 @@ const StatisticsPage = () => {
     return totalMilliseconds;
   }
 
-  const totalDurationMilliseconds = getTotalDuration(allTales as TaleProps[]);
+  const totalDuration = formatDuration(
+    getTotalDuration(allTales as TaleProps[])
+  );
+
+  const statsData = [
+    {
+      id: 1,
+      title: "Tales",
+      value: allTales?.length,
+      iconSrc: "/icons/tale.svg",
+    },
+    {
+      id: 2,
+      title: "Authors",
+      value: allUsers.length,
+      iconSrc: "/icons/authors.png",
+    },
+    {
+      id: 3,
+      title: "Tales Duration",
+      value: totalDuration,
+      iconSrc: "/icons/clock.svg",
+    },
+    {
+      id: 4,
+      title: "Listeners",
+      value: totalViews,
+      iconSrc: "/icons/headphones.svg",
+    },
+  ];
 
   return (
     <div className="flex flex-col gap-6">
       <h1 className="main_title">Statistics</h1>
       <div className="stats_grid">
-        <div className="rounded-xl bg-black-2 text-card-foreground shadow">
-          <div className="p-6 flex flex-row items-center justify-between space-y-0 pb-2">
-            <h3 className="tracking-tight text-sm font-medium">Tales</h3>
-            <Image
-              src="/icons/tale.svg"
-              width={32}
-              height={32}
-              alt="Tale"
-              className="h-8 w-8 text-muted-foreground"
-            />
-          </div>
-          <div className="p-6 pt-0">
-            <div className="text-4xl text-white-1 font-bold">
-              {allTales?.length}
-            </div>
-          </div>
-        </div>
-        <div className="rounded-xl bg-black-2 text-card-foreground shadow">
-          <div className="p-6 flex flex-row items-center justify-between space-y-0 pb-2">
-            <h3 className="tracking-tight text-sm font-medium">Authors</h3>
-            <Image
-              src="/icons/authors.png"
-              width={32}
-              height={32}
-              alt="headphone"
-              className="h-8 w-8 text-muted-foreground"
-            />
-          </div>
-          <div className="p-6 pt-0">
-            <div className="text-4xl text-white-1 font-bold">
-              {allUsers?.length}
-            </div>
-          </div>
-        </div>
-        <div className="rounded-xl bg-black-2 text-card-foreground shadow">
-          <div className="p-6 flex flex-row items-center justify-between space-y-0 pb-2">
-            <h3 className="tracking-tight text-sm font-medium">
-              Tales Duration
-            </h3>
-            <Image
-              src="/icons/clock.svg"
-              width={32}
-              height={32}
-              alt="headphone"
-              className="h-8 w-8 text-muted-foreground"
-            />
-          </div>
-          <div className="p-6 pt-0">
-            <div className="text-4xl text-white-1 font-bold">
-              {formatDuration(totalDurationMilliseconds)}
-            </div>
-          </div>
-        </div>
-        <div className="rounded-xl bg-black-2 text-card-foreground shadow">
-          <div className="p-6 flex flex-row items-center justify-between space-y-0 pb-2">
-            <h3 className="tracking-tight text-sm font-medium">Listeners</h3>
-            <Image
-              src="/icons/headphones.svg"
-              width={32}
-              height={32}
-              alt="headphone"
-              className="h-8 w-8 text-muted-foreground"
-            />
-          </div>
-          <div className="p-6 pt-0">
-            <div className="text-4xl text-white-1 font-bold">{totalViews}</div>
-          </div>
-        </div>
+        {statsData.map((stat) => (
+          <StatsCard
+            key={stat.id}
+            title={stat.title}
+            value={stat.value}
+            iconSrc={stat.iconSrc}
+          />
+        ))}
       </div>
       <h2 className="text-lg font-medium text-white-1">AI Voice Preference</h2>
       <ChartContainer
