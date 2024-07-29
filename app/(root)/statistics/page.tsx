@@ -2,17 +2,17 @@
 import Image from "next/image";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
-import { Bar, BarChart, LabelList, XAxis, YAxis } from "recharts";
+import { Bar, BarChart, LabelList, YAxis } from "recharts";
 import { ChartConfig, ChartContainer } from "@/components/ui/chart";
 import LoaderSpiner from "@/app/components/LoaderSpiner";
+import { TaleProps } from "@/Types";
+import { formatDuration } from "@/lib/formatTime";
 
 const StatisticsPage = () => {
   const allTales = useQuery(api.tales.getAllTales, {});
   const allUsers = useQuery(api.users.getAllUsers, {});
 
   if (!allTales || !allUsers) return <LoaderSpiner />;
-
-  console.log(allTales);
 
   // Define the type for the voice count object
   type VoiceCount = {
@@ -44,6 +44,18 @@ const StatisticsPage = () => {
       color: "#7C3AED",
     },
   } satisfies ChartConfig;
+
+  const totalViews = allTales.reduce((sum, tale) => sum + tale.views, 0);
+
+  function getTotalDuration(data: TaleProps[]) {
+    const totalMilliseconds = data.reduce(
+      (total, item) => total + item.audioDuration * 1000,
+      0
+    );
+    return totalMilliseconds;
+  }
+
+  const totalDurationMilliseconds = getTotalDuration(allTales as TaleProps[]);
 
   return (
     <div className="flex flex-col gap-6">
@@ -83,9 +95,46 @@ const StatisticsPage = () => {
             </div>
           </div>
         </div>
+        <div className="rounded-xl bg-black-2 text-card-foreground shadow">
+          <div className="p-6 flex flex-row items-center justify-between space-y-0 pb-2">
+            <h3 className="tracking-tight text-sm font-medium">
+              Tales Duration
+            </h3>
+            <Image
+              src="/icons/clock.svg"
+              width={32}
+              height={32}
+              alt="headphone"
+              className="h-8 w-8 text-muted-foreground"
+            />
+          </div>
+          <div className="p-6 pt-0">
+            <div className="text-4xl text-white-1 font-bold">
+              {formatDuration(totalDurationMilliseconds)}
+            </div>
+          </div>
+        </div>
+        <div className="rounded-xl bg-black-2 text-card-foreground shadow">
+          <div className="p-6 flex flex-row items-center justify-between space-y-0 pb-2">
+            <h3 className="tracking-tight text-sm font-medium">Listeners</h3>
+            <Image
+              src="/icons/headphones.svg"
+              width={32}
+              height={32}
+              alt="headphone"
+              className="h-8 w-8 text-muted-foreground"
+            />
+          </div>
+          <div className="p-6 pt-0">
+            <div className="text-4xl text-white-1 font-bold">{totalViews}</div>
+          </div>
+        </div>
       </div>
       <h2 className="text-lg font-medium text-white-1">AI voice usage</h2>
-      <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
+      <ChartContainer
+        config={chartConfig}
+        className="min-h-[200px] max-h-[380px] w-full"
+      >
         <BarChart accessibilityLayer data={voiceUsage}>
           <YAxis />
           <Bar dataKey="usage" fill="var(--color-usage)" radius={4}>
