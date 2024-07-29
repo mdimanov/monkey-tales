@@ -2,6 +2,19 @@ import { ConvexError, v } from "convex/values";
 
 import { internalMutation, query } from "./_generated/server";
 
+export const getAllUsers = query({
+  args: {
+    numUsers: v.optional(v.number()),
+  },
+  handler: async (ctx, { numUsers }) => {
+    const users = await ctx.db.query("users").order("desc").collect();
+    if (numUsers !== undefined) {
+      return users.slice(0, numUsers);
+    }
+    return users;
+  },
+})
+
 export const getUserById = query({
   args: { clerkId: v.string() },
   handler: async (ctx, args) => {

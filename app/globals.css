@@ -28,6 +28,9 @@
     }
     .tale_grid {
       @apply grid grid-cols-2 gap-6 lg:gap-10 lg:grid-cols-3 2xl:grid-cols-4;
+    } 
+    .stats_grid {
+      @apply grid grid-cols-1 gap-6 lg:gap-10 lg:grid-cols-2;
     }
     .right_sidebar {
       @apply sticky right-0 top-0 flex w-[360px] flex-col overflow-y-hidden border-none bg-black-2 px-[30px] pt-8 max-xl:hidden;

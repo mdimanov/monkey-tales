@@ -13,6 +13,7 @@ export const NAVIGATION: NavigationItem[] = [
     { label: "Home", route: "/", icon: 'home'},
     { label: "Discover", route: "/discover", icon: 'search'},
     { label: "Authors", route: "/authors", icon: 'authors' },
+    { label: "Statistics", route: "/statistics", icon: 'stats' },
     { label: "Create Tale", route: "/create-tale", icon: 'book' },
   ];
   
