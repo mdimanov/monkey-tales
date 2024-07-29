@@ -176,6 +176,10 @@
     text-transform: uppercase; 
   }
 
+  path.recharts-rectangle.recharts-tooltip-cursor {
+    fill: rgba(204, 204, 204, 0.1);
+  }
+
   .mobile-menu {
     padding: 1.5rem 0 0 1.5rem;
   }

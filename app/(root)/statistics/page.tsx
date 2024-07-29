@@ -1,24 +1,28 @@
 "use client";
-import Image from "next/image";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Bar, BarChart, LabelList, YAxis } from "recharts";
-import { ChartConfig, ChartContainer } from "@/components/ui/chart";
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+} from "@/components/ui/chart";
+import ChartTooltipContent from "@/app/components/ChartToolTipContent";
 import LoaderSpiner from "@/app/components/LoaderSpiner";
 import { TaleProps } from "@/Types";
 import { formatDuration } from "@/lib/formatTime";
 import StatsCard from "@/app/components/StatsCard";
+
+// Define the type for the voice count object
+type VoiceCount = {
+  [key: string]: number;
+};
 
 const StatisticsPage = () => {
   const allTales = useQuery(api.tales.getAllTales, {});
   const allUsers = useQuery(api.users.getAllUsers, {});
 
   if (!allTales || !allUsers) return <LoaderSpiner />;
-
-  // Define the type for the voice count object
-  type VoiceCount = {
-    [key: string]: number;
-  };
 
   // Create an object to count the occurrences of each voice type
   const voiceCount: VoiceCount = {};
@@ -116,6 +120,7 @@ const StatisticsPage = () => {
               style={{ fill: "white", fontSize: "16px" }}
             />
           </Bar>
+          <ChartTooltip content={<ChartTooltipContent />} />
         </BarChart>
       </ChartContainer>
     </div>
