@@ -7,7 +7,7 @@ import {
   ChartContainer,
   ChartTooltip,
 } from "@/components/ui/chart";
-import ChartTooltipContent from "@/app/components/ChartToolTipContent";
+import ChartTooltipContent from "@/app/components/ChartTooltipContent";
 import LoaderSpiner from "@/app/components/LoaderSpiner";
 import { TaleProps } from "@/Types";
 import { formatDuration } from "@/lib/formatTime";
