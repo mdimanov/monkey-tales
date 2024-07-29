@@ -130,7 +130,7 @@ const StatisticsPage = () => {
           </div>
         </div>
       </div>
-      <h2 className="text-lg font-medium text-white-1">AI voice usage</h2>
+      <h2 className="text-lg font-medium text-white-1">AI Voice Preference</h2>
       <ChartContainer
         config={chartConfig}
         className="min-h-[200px] max-h-[380px] w-full"
