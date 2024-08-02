@@ -18,3 +18,5 @@ export const NAVIGATION: NavigationItem[] = [
   ];
   
 export const VOICES = ['alloy', 'shimmer', 'nova', 'echo', 'fable', 'onyx']
+
+export const ADMIN = 'user_2i385LkE4gBaWKb15MfeVd8ieq6'

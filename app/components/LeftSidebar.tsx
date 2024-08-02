@@ -4,9 +4,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Raleway } from "next/font/google";
-import { NAVIGATION } from "../utils/constants";
+import { NAVIGATION, ADMIN } from "../utils/constants";
 import { usePathname, useRouter } from "next/navigation";
-import { SignedIn, SignedOut, useClerk } from "@clerk/nextjs";
+import { SignedIn, SignedOut, useClerk, useUser } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 
 const raleway = Raleway({
@@ -18,6 +18,9 @@ const LeftSidebar = () => {
   const pathname = usePathname();
   const router = useRouter();
   const { signOut } = useClerk();
+  const { user } = useUser();
+
+  const isAdmin = user?.id === ADMIN;
 
   return (
     <section className="left_sidebar">
@@ -80,7 +83,21 @@ const LeftSidebar = () => {
         </div>
       </SignedOut>
       <SignedIn>
-        <div className="flex-center w-full pb-14 max-lg:px-4 lg:pr-8">
+        <div className="flex-center flex-col gap-3 w-full pb-14 max-lg:px-4 lg:pr-8">
+          {isAdmin && (
+            <Button
+              className="text-16 flex w-full transition-all duration-500 bg-slate-500 hover:bg-slate-700 font-extrabold text-white-1"
+              onClick={() => router.push("/admin")}
+            >
+              <Image
+                src="/icons/admin.svg"
+                width={20}
+                height={20}
+                alt="admin"
+              />
+              &nbsp; Admin
+            </Button>
+          )}
           <Button
             className="text-16 flex w-full transition-all duration-500 bg-violet-600 hover:bg-violet-800 font-extrabold text-white-1"
             onClick={() => signOut(() => router.push("/"))}
