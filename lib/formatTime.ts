@@ -4,8 +4,8 @@ export const formatTime = (seconds: number) => {
     return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
   };
 
-  // Helper function to format time
-  export const formatDuration = (milliseconds: number): string => {
+// Helper function to format time
+export const formatDuration = (milliseconds: number): string => {
   const totalSeconds = Math.floor(milliseconds / 1000);
   const hours = Math.floor(totalSeconds / 3600);
   const minutes = Math.floor((totalSeconds % 3600) / 60);
