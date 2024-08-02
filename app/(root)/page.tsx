@@ -47,15 +47,7 @@ const Home = () => {
         <div className="flex flex-col gap-2">
           {latesTales ? (
             latesTales.map(
-              ({
-                _id,
-                taleTitle,
-                imageUrl,
-                author,
-                voiceType,
-                audioDuration,
-                views,
-              }) => (
+              ({ _id, taleTitle, imageUrl, author, audioDuration, views }) => (
                 <SmallTaleCard
                   key={_id}
                   taleId={_id}

@@ -168,6 +168,14 @@ export interface SmallProfileCardProps {
   clerkId: string;
 }
 
+export type EditTaleControlsProps = {
+  taleId:  Id<"tales">;
+  taleTitle: string;
+  taleDescription: string;
+  imageStorageId: Id<"_storage"> | undefined;
+  audioStorageId: Id<"_storage"> | undefined;
+};
+
 export type UseDotButtonType = {
   selectedIndex: number;
   scrollSnaps: number[];

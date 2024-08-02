@@ -23,7 +23,7 @@ const SmallTaleCard = ({
 
   return (
     <div
-      className="cursor-pointer transition-all duration-500 rounded-xl flex items-center font-semibold border-transparent hover:border-violet-800 hover:bg-lates-focus border-l-4"
+      className="w-full cursor-pointer transition-all duration-500 rounded-xl flex items-center font-semibold border-transparent hover:border-violet-800 hover:bg-lates-focus border-l-4"
       onClick={handleViews}
     >
       <figure className="flex w-full justify-between gap-2">
