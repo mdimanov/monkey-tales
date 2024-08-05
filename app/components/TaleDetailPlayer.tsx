@@ -12,6 +12,7 @@ import LoaderSpinner from "./LoaderSpiner";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import EditTaleControls from "./EditTaleControls";
+import { EditProvider } from "@/providers/EditProvider";
 
 const TaleDetailPlayer = ({
   audioUrl,
@@ -113,13 +114,15 @@ const TaleDetailPlayer = ({
       </div>
       {isOwner && (
         <div className="absolute md:right-0 md:top-0 md:relative top-2.5 right-2.5 min-w-5">
-          <EditTaleControls
-            taleId={taleId}
-            taleTitle={taleTitle}
-            taleDescription={taleDescription}
-            imageStorageId={imageStorageId}
-            audioStorageId={audioStorageId}
-          />
+          <EditProvider>
+            <EditTaleControls
+              taleId={taleId}
+              taleTitle={taleTitle}
+              taleDescription={taleDescription}
+              imageStorageId={imageStorageId}
+              audioStorageId={audioStorageId}
+            />
+          </EditProvider>
         </div>
       )}
     </div>
