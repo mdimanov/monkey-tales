@@ -14,17 +14,17 @@ import EditTaleControls from "@/app/components/EditTaleControls";
 import { EditProvider } from "@/providers/EditProvider";
 
 const Admin = () => {
-  const { user } = useUser();
+  const { user, isLoaded } = useUser();
   const router = useRouter();
   const allTales = useQuery(api.tales.getAllTales, {});
 
   useEffect(() => {
-    if (user?.id !== ADMIN) {
+    if (isLoaded && user?.id !== ADMIN) {
       router.push("/");
     }
-  }, [user, router]);
+  }, [user, isLoaded, router]);
 
-  if (user?.id !== ADMIN) {
+  if (!isLoaded || user?.id !== ADMIN) {
     return <LoaderSpiner />;
   }
 
