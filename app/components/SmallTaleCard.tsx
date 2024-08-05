@@ -31,8 +31,8 @@ const SmallTaleCard = ({
           <Image
             src={imgUrl}
             alt={title}
-            width={180}
-            height={180}
+            width={50}
+            height={50}
             className="aspect-square object-cover h-fit rounded-xl"
           />
           <div className="flex flex-col max-w-[190px] sm:max-w-full lg:max-w-full">

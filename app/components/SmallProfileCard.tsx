@@ -22,10 +22,11 @@ const SmallProfileCard = ({
     >
       <Image
         src={imageUrl}
-        width={90}
-        height={90}
+        height={180}
+        width={180}
         alt="Profile image"
         className="aspect-square object-cover rounded-xl"
+        style={{ width: "90px", height: "90px" }}
       />
       <div className="flex w-full flex-col max-md:items-center mt-0 md:mt-2">
         <div className="flex w-full flex-col gap-1">
