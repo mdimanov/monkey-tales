@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import {
   AlertDialog,
@@ -18,6 +18,7 @@ import { api } from "@/convex/_generated/api";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter, usePathname } from "next/navigation";
 import { EditTaleControlsProps } from "@/Types";
+import { useEditContext } from "@/providers/EditProvider";
 
 const EditTaleControls: React.FC<EditTaleControlsProps> = ({
   taleId,
@@ -29,13 +30,12 @@ const EditTaleControls: React.FC<EditTaleControlsProps> = ({
   const router = useRouter();
   const pathname = usePathname();
   const { toast } = useToast();
-  const [isEditing, setIsEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState(taleTitle);
   const [editedDescription, setEditedDescription] = useState(taleDescription);
   const deleteTale = useMutation(api.tales.deleteTale);
   const editTale = useMutation(api.tales.editTale);
-  const editRef = useRef<HTMLDivElement>(null);
-  const alertDialogRef = useRef<HTMLDivElement>(null);
+
+  const { activeTaleId, setActiveTaleId } = useEditContext();
 
   const handleDelete = async () => {
     if (!imageStorageId || !audioStorageId) {
@@ -66,7 +66,7 @@ const EditTaleControls: React.FC<EditTaleControlsProps> = ({
   const handleEdit = async () => {
     if (!imageStorageId) {
       toast({
-        title: "Error deleting tale",
+        title: "Error editing tale",
         variant: "destructive",
         description: "Missing storage IDs",
       });
@@ -90,45 +90,29 @@ const EditTaleControls: React.FC<EditTaleControlsProps> = ({
     }
   };
 
-  const handleClickOutside = (event: MouseEvent) => {
-    if (
-      editRef.current &&
-      !editRef.current.contains(event.target as Node) &&
-      alertDialogRef.current &&
-      !alertDialogRef.current.contains(event.target as Node)
-    ) {
-      setIsEditing(false);
-    }
-  };
-
   const handleDialogOpenChange = (open: boolean) => {
     if (!open) {
-      setIsEditing(false);
+      setActiveTaleId(null);
     }
   };
 
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+  const isEditing = activeTaleId === taleId;
 
   return (
-    <div className="flex alingn-center justify-center relative" ref={editRef}>
+    <div className="flex alingn-center justify-center relative">
       <Image
         src="/icons/settings.svg"
         width={22}
         height={22}
         alt="Tale edit icon"
         className={`cursor-pointer transition-transform duration-300 ${isEditing ? "rotate-45" : ""}`}
-        onClick={() => setIsEditing((prev) => !prev)}
+        onClick={() => setActiveTaleId(isEditing ? null : taleId)}
       />
       {isEditing && (
-        <div className="flex flex-col gap-1 absolute -left-36 -top-1 z-10 w-32">
+        <div className="flex flex-col gap-1 absolute -left-36 -top-1 z-10 w-32 p-2 rounded-md bg-black-3">
           <AlertDialog onOpenChange={handleDialogOpenChange}>
             <AlertDialogTrigger>
-              <div className="flex cursor-pointer justify-center gap-2 rounded-md bg-black-2 py-1.5 hover:bg-black-3 transition-all duration-500">
+              <div className="flex cursor-pointer justify-center gap-2 rounded-md bg-black-2 py-1.5 hover:bg-black-1 transition-all duration-500">
                 <Image
                   src="/icons/edit.svg"
                   width={14}
@@ -138,7 +122,7 @@ const EditTaleControls: React.FC<EditTaleControlsProps> = ({
                 <p className="text-sm font-normal text-white-1">Edit</p>
               </div>
             </AlertDialogTrigger>
-            <AlertDialogContent ref={alertDialogRef}>
+            <AlertDialogContent>
               <AlertDialogHeader>
                 <AlertDialogTitle>Edit Tale</AlertDialogTitle>
                 <AlertDialogDescription>
@@ -177,7 +161,7 @@ const EditTaleControls: React.FC<EditTaleControlsProps> = ({
                 <p className="text-sm font-normal text-white-1">Delete</p>
               </div>
             </AlertDialogTrigger>
-            <AlertDialogContent ref={alertDialogRef}>
+            <AlertDialogContent>
               <AlertDialogHeader>
                 <AlertDialogTitle>Confirm Delete</AlertDialogTitle>
                 <AlertDialogDescription>

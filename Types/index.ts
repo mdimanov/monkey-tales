@@ -176,6 +176,12 @@ export type EditTaleControlsProps = {
   audioStorageId: Id<"_storage"> | undefined;
 };
 
+
+export type EditContextType = {
+  activeTaleId: Id<"tales"> | null;
+  setActiveTaleId: Dispatch<SetStateAction<Id<"tales"> | null>>;
+}
+
 export type UseDotButtonType = {
   selectedIndex: number;
   scrollSnaps: number[];
