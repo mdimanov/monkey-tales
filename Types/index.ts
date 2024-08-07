@@ -43,6 +43,10 @@ export interface TaleProps {
   voiceType: string;
   audioDuration: number;
   views: number;
+  likesCount: number;
+  dislikesCount: number; 
+  likedBy: Id<"users">[]; 
+  dislikedBy: Id<"users">[];
 }
 
 export interface TalesData {

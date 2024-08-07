@@ -18,6 +18,10 @@ export default defineSchema({
         voiceType: v.string(),
         audioDuration: v.number(),
         views: v.number(),
+        likesCount: v.number(), 
+        dislikesCount: v.number(), 
+        likedBy: v.array(v.string()), 
+        dislikedBy: v.array(v.string())
     })
     .searchIndex('search_author', { searchField: 'author' })
     .searchIndex('search_title', { searchField: 'taleTitle' })

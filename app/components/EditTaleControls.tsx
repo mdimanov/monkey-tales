@@ -99,13 +99,13 @@ const EditTaleControls: React.FC<EditTaleControlsProps> = ({
   const isEditing = activeTaleId === taleId;
 
   return (
-    <div className="flex alingn-center justify-center relative">
+    <div className="flex w-[40px] items-center justify-center relative">
       <Image
         src="/icons/settings.svg"
-        width={22}
-        height={22}
+        width={40}
+        height={40}
         alt="Tale edit icon"
-        className={`cursor-pointer transition-transform duration-300 ${isEditing ? "rotate-45" : ""}`}
+        className={`cursor-pointer p-2 bg-black-3 h-[40px] w-[40px] rounded-full transition-transform duration-300 ${isEditing ? "rotate-45" : ""}`}
         onClick={() => setActiveTaleId(isEditing ? null : taleId)}
       />
       {isEditing && (

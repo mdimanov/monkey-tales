@@ -43,12 +43,104 @@ export const createTale = mutation({
         author: user[0].name,
         authorId: user[0].clerkId,
         authorImageUrl: user[0].imageUrl,
+        likesCount: 0, 
+        dislikesCount: 0, 
+        likedBy: [], 
+        dislikedBy: [] 
     })
 
     return tale;
 
     }
 })
+
+export const likeTale = mutation({
+  args: {
+    taleId: v.id("tales"),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) {
+      throw new ConvexError("User not authenticated");
+    }
+
+    const user = await ctx.db.query("users").filter((q) => q.eq(q.field("email"), identity.email)).collect();
+
+    if (user.length === 0) {
+      throw new ConvexError('User not found');
+    }
+
+    const tale = await ctx.db.get(args.taleId);
+
+    if (!tale) {
+      throw new ConvexError("Tale not found");
+    }
+
+    if (!tale.likedBy.includes(user[0].clerkId)) {
+      await ctx.db.patch(args.taleId, {
+        likesCount: tale.likesCount + 1,
+        likedBy: [...tale.likedBy, user[0].clerkId],
+        dislikesCount: tale.dislikesCount - (tale.dislikedBy.includes(user[0].clerkId) ? 1 : 0),
+        dislikedBy: tale.dislikedBy.filter(id => id !== user[0].clerkId),
+      });
+    }
+  }
+});
+
+export const dislikeTale = mutation({
+  args: {
+    taleId: v.id("tales"),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) {
+      throw new ConvexError("User not authenticated");
+    }
+
+    const user = await ctx.db.query("users").filter((q) => q.eq(q.field("email"), identity.email)).collect();
+
+    if (user.length === 0) {
+      throw new ConvexError('User not found');
+    }
+
+    const tale = await ctx.db.get(args.taleId);
+
+    if (!tale) {
+      throw new ConvexError("Tale not found");
+    }
+
+    if (!tale.dislikedBy.includes(user[0].clerkId)) {
+      await ctx.db.patch(args.taleId, {
+        dislikesCount: tale.dislikesCount + 1,
+        dislikedBy: [...tale.dislikedBy, user[0].clerkId],
+        likesCount: tale.likesCount - (tale.likedBy.includes(user[0].clerkId) ? 1 : 0),
+        likedBy: tale.likedBy.filter(id => id !== user[0].clerkId),
+      });
+    }
+  }
+});
+
+export const getUserReaction = query({
+  args: {
+    taleId: v.id("tales"),
+    clerkId: v.string(),
+  },
+  handler: async (ctx, { taleId, clerkId }) => {
+    const tale = await ctx.db.get(taleId);
+    if (!tale) {
+      throw new Error("Tale not found");
+    }
+    
+    const hasLiked = tale.likedBy.includes(clerkId);
+    const hasDisliked = tale.dislikedBy.includes(clerkId);
+    
+    if (hasLiked) return "like";
+    if (hasDisliked) return "dislike";
+    return null;
+  }
+});
 
 export const getTales = query({
     handler: async (ctx) => {

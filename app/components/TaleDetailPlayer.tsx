@@ -1,10 +1,11 @@
 "use client";
-import { useMutation } from "convex/react";
+import { useQuery, useMutation } from "convex/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { api } from "@/convex/_generated/api";
+import { useUser } from "@clerk/nextjs";
 import { useAudio } from "@/providers/AudioProvider";
 import { TaleDetailPlayerProps } from "@/Types";
 
@@ -13,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import EditTaleControls from "./EditTaleControls";
 import { EditProvider } from "@/providers/EditProvider";
+import { cn } from "@/lib/utils";
 
 const TaleDetailPlayer = ({
   audioUrl,
@@ -29,11 +31,29 @@ const TaleDetailPlayer = ({
   authorId,
 }: TaleDetailPlayerProps) => {
   const router = useRouter();
+  const { user, isLoaded } = useUser();
   const { setAudio } = useAudio();
   const { toast } = useToast();
   const [isPlaying, setIsPlaying] = useState(false);
 
+  const [reaction, setReaction] = useState<null | "like" | "dislike">(null);
+  const likeTaleMutation = useMutation(api.tales.likeTale);
+  const dislikeTaleMutation = useMutation(api.tales.dislikeTale);
+
   const updateViews = useMutation(api.tales.updateTaleViews);
+
+  const userId = isLoaded && user ? user.id : "";
+
+  const userReaction = useQuery(api.tales.getUserReaction, {
+    taleId,
+    clerkId: userId,
+  });
+
+  useEffect(() => {
+    if (userReaction) {
+      setReaction(userReaction);
+    }
+  }, [userReaction]);
 
   const handlePlay = async () => {
     setIsPlaying(true);
@@ -52,6 +72,24 @@ const TaleDetailPlayer = ({
         title: "Error playing tale",
         variant: "destructive",
       });
+    }
+  };
+
+  const handleLike = async () => {
+    if (reaction !== "like") {
+      await likeTaleMutation({ taleId });
+      setReaction("like");
+    } else {
+      setReaction(null);
+    }
+  };
+
+  const handleDislike = async () => {
+    if (reaction !== "dislike") {
+      await dislikeTaleMutation({ taleId });
+      setReaction("dislike");
+    } else {
+      setReaction(null);
     }
   };
 
@@ -96,24 +134,67 @@ const TaleDetailPlayer = ({
               AI voice: <strong className="text-white-1">{voiceType}</strong>
             </p>
           </article>
-
-          <Button
-            onClick={handlePlay}
-            disabled={isPlaying}
-            className="text-16 w-full max-w-[250px] transition-all duration-500 bg-violet-600 hover:bg-violet-800 font-extrabold text-white-1"
-          >
-            <Image
-              src="/icons/play.svg"
-              width={20}
-              height={20}
-              alt="random play"
-            />
-            &nbsp; Play tale
-          </Button>
+          <div className="flex flex-col w-full items-center md:flex-row md:justify-between gap-2">
+            <Button
+              onClick={handlePlay}
+              disabled={isPlaying}
+              className="text-16 w-full max-w-[250px] transition-all duration-500 bg-violet-600 hover:bg-violet-800 font-extrabold text-white-1"
+            >
+              <Image
+                src="/icons/play.svg"
+                width={20}
+                height={20}
+                alt="random play"
+              />
+              &nbsp; Play tale
+            </Button>
+            <div className="flex gap-2">
+              <div
+                className={cn(
+                  "flex cursor-pointer h-10 px-4 py-2 bg-black-3 transition-all duration-500 hover:bg-black-2 items-center justify-center rounded-md w-[60px]",
+                  {
+                    "bg-green-600 hover:bg-green-800": reaction === "like",
+                  }
+                )}
+                onClick={handleLike}
+              >
+                <Image
+                  src={
+                    reaction === "like"
+                      ? "/icons/thumb-up-solid.svg"
+                      : "/icons/thumb-up.svg"
+                  }
+                  width={20}
+                  height={20}
+                  alt="I like this tale"
+                />
+              </div>
+              <div
+                className={cn(
+                  "flex cursor-pointer h-10 px-4 py-2 bg-black-3 transition-all duration-500 hover:bg-black-2 items-center justify-center rounded-md w-[60px]",
+                  {
+                    "bg-red-600 hover:bg-red-800": reaction === "dislike",
+                  }
+                )}
+                onClick={handleDislike}
+              >
+                <Image
+                  src={
+                    reaction === "dislike"
+                      ? "/icons/thumb-down-solid.svg"
+                      : "/icons/thumb-down.svg"
+                  }
+                  width={20}
+                  height={20}
+                  alt="I don't this tale"
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       {isOwner && (
-        <div className="absolute md:right-0 md:top-0 md:relative top-2.5 right-2.5 min-w-5">
+        <div className="absolute min-w-[40px] md:right-0 md:top-0 md:relative top-2.5 right-2.5">
           <EditProvider>
             <EditTaleControls
               taleId={taleId}
