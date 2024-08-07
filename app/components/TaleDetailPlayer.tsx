@@ -120,10 +120,11 @@ const TaleDetailPlayer = ({
             >
               <Image
                 src={authorImageUrl}
-                width={30}
-                height={30}
+                width={60}
+                height={60}
                 alt="Caster icon"
                 className="size-[30px] rounded-full object-cover"
+                style={{ width: "30px", height: "30px" }}
               />
               <h2 className="text-16 font-normal text-white-3">{author}</h2>
             </figure>
