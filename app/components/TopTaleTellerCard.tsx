@@ -16,9 +16,10 @@ const TopTaleTellerCard = ({ taleTeller }: TopTaleTellerCardProps) => {
         <Image
           src={taleTeller.imageUrl}
           alt={`${taleTeller.name} profile picture`}
-          width={36}
-          height={36}
+          width={70}
+          height={70}
           className="aspect-square object-cover rounded-lg"
+          style={{ width: "36px", height: "36px" }}
         />
         <h3 className="text-sm font-semibold">{taleTeller.name}</h3>
       </figure>
