@@ -105,6 +105,8 @@ export interface TaleDetailPlayerProps {
   audioStorageId?: Id<"_storage">;
   authorImageUrl: string;
   authorId: string;
+  likesCount: number;
+  dislikesCount: number;
 }
 
 export interface AudioProps {

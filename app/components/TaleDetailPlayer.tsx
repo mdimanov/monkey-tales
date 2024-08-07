@@ -29,6 +29,8 @@ const TaleDetailPlayer = ({
   isOwner,
   authorImageUrl,
   authorId,
+  likesCount,
+  dislikesCount,
 }: TaleDetailPlayerProps) => {
   const router = useRouter();
   const { user, isLoaded } = useUser();
@@ -152,7 +154,7 @@ const TaleDetailPlayer = ({
             <div className="flex gap-2">
               <div
                 className={cn(
-                  "flex cursor-pointer h-10 px-4 py-2 bg-black-3 transition-all duration-500 hover:bg-black-2 items-center justify-center rounded-md w-[60px]",
+                  "flex text-white-1 cursor-pointer h-10 px-4 py-2 bg-black-3 transition-all duration-500 hover:bg-black-2 items-center justify-center rounded-md w-[60px] gap-2",
                   {
                     "bg-green-600 hover:bg-green-800": reaction === "like",
                   }
@@ -169,16 +171,18 @@ const TaleDetailPlayer = ({
                   height={20}
                   alt="I like this tale"
                 />
+                {likesCount}
               </div>
               <div
                 className={cn(
-                  "flex cursor-pointer h-10 px-4 py-2 bg-black-3 transition-all duration-500 hover:bg-black-2 items-center justify-center rounded-md w-[60px]",
+                  "flex text-white-1 cursor-pointer h-10 px-4 py-2 bg-black-3 transition-all duration-500 hover:bg-black-2 items-center justify-center rounded-md w-[60px] gap-2",
                   {
                     "bg-red-600 hover:bg-red-800": reaction === "dislike",
                   }
                 )}
                 onClick={handleDislike}
               >
+                {dislikesCount}
                 <Image
                   src={
                     reaction === "dislike"
