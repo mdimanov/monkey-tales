@@ -78,20 +78,28 @@ const TaleDetailPlayer = ({
   };
 
   const handleLike = async () => {
-    if (reaction !== "like") {
+    try {
       await likeTaleMutation({ taleId });
-      setReaction("like");
-    } else {
-      setReaction(null);
+      setReaction(reaction === "like" ? null : "like");
+    } catch (error) {
+      console.error("Error liking the tale", error);
+      toast({
+        title: "Error liking the tale",
+        variant: "destructive",
+      });
     }
   };
 
   const handleDislike = async () => {
-    if (reaction !== "dislike") {
+    try {
       await dislikeTaleMutation({ taleId });
-      setReaction("dislike");
-    } else {
-      setReaction(null);
+      setReaction(reaction === "dislike" ? null : "dislike");
+    } catch (error) {
+      console.error("Error liking the tale", error);
+      toast({
+        title: "Error disliking the tale",
+        variant: "destructive",
+      });
     }
   };
 

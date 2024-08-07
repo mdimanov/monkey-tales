@@ -68,7 +68,7 @@ export const likeTale = mutation({
     const user = await ctx.db.query("users").filter((q) => q.eq(q.field("email"), identity.email)).collect();
 
     if (user.length === 0) {
-      throw new ConvexError('User not found');
+      throw new ConvexError("User not found");
     }
 
     const tale = await ctx.db.get(args.taleId);
@@ -77,12 +77,22 @@ export const likeTale = mutation({
       throw new ConvexError("Tale not found");
     }
 
-    if (!tale.likedBy.includes(user[0].clerkId)) {
+    const userId = user[0].clerkId;
+   
+    if (tale.likedBy.includes(userId)) {
+      // User already liked the tale, so remove the like
+      await ctx.db.patch(args.taleId, {
+        likesCount: tale.likesCount - 1,
+        likedBy: tale.likedBy.filter((id) => id !== userId),
+      });
+    } else {
+      // User has not liked the tale, so add the like
       await ctx.db.patch(args.taleId, {
         likesCount: tale.likesCount + 1,
-        likedBy: [...tale.likedBy, user[0].clerkId],
-        dislikesCount: tale.dislikesCount - (tale.dislikedBy.includes(user[0].clerkId) ? 1 : 0),
-        dislikedBy: tale.dislikedBy.filter(id => id !== user[0].clerkId),
+        likedBy: [...tale.likedBy, userId],
+        // Also handle if the user had disliked the tale previously
+        dislikesCount: tale.dislikesCount - (tale.dislikedBy.includes(userId) ? 1 : 0),
+        dislikedBy: tale.dislikedBy.filter((id) => id !== userId),
       });
     }
   }
@@ -111,12 +121,22 @@ export const dislikeTale = mutation({
       throw new ConvexError("Tale not found");
     }
 
-    if (!tale.dislikedBy.includes(user[0].clerkId)) {
+    const userId = user[0].clerkId;
+
+    if (tale.dislikedBy.includes(userId)) {
+      // User already disliked the tale, so remove the dislike
+      await ctx.db.patch(args.taleId, {
+        dislikesCount: tale.dislikesCount - 1,
+        dislikedBy: tale.dislikedBy.filter((id) => id !== userId),
+      });
+    } else {
+      // User has not disliked the tale, so add the dislike
       await ctx.db.patch(args.taleId, {
         dislikesCount: tale.dislikesCount + 1,
-        dislikedBy: [...tale.dislikedBy, user[0].clerkId],
-        likesCount: tale.likesCount - (tale.likedBy.includes(user[0].clerkId) ? 1 : 0),
-        likedBy: tale.likedBy.filter(id => id !== user[0].clerkId),
+        dislikedBy: [...tale.dislikedBy, userId],
+        // Also handle if the user had liked the tale previously
+        likesCount: tale.likesCount - (tale.likedBy.includes(userId) ? 1 : 0),
+        likedBy: tale.likedBy.filter((id) => id !== userId),
       });
     }
   }
