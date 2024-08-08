@@ -6,8 +6,9 @@ import { useUser } from "@clerk/nextjs";
 import { useToast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
 import { api } from "@/convex/_generated/api";
-import { useEffect, useState } from "react";
-import { ReactionButtonsProps, ReactionType } from "@/Types";
+import { useState } from "react";
+import { ReactionButtonsProps } from "@/Types";
+import { useReaction } from "../hooks/useReaction";
 
 const ReactionButtons: React.FC<ReactionButtonsProps> = ({
   taleId,
@@ -15,32 +16,17 @@ const ReactionButtons: React.FC<ReactionButtonsProps> = ({
   initialDislikesCount,
 }) => {
   const { toast } = useToast();
-  const { user, isLoaded } = useUser();
   const likeTaleMutation = useMutation(api.tales.likeTale);
   const dislikeTaleMutation = useMutation(api.tales.dislikeTale);
 
   const [likesCount, setLikesCount] = useState(initialLikesCount);
   const [dislikesCount, setDislikesCount] = useState(initialDislikesCount);
 
-  const [reaction, setReaction] = useState<ReactionType>(null);
-
-  const userId = isLoaded && user ? user.id : "";
-
-  const userReaction = useQuery(api.tales.getUserReaction, {
-    taleId,
-    clerkId: userId,
-  });
-
-  useEffect(() => {
-    if (userReaction) {
-      setReaction(userReaction);
-    }
-  }, [userReaction]);
+  const reaction = useReaction({ taleId });
 
   const handleLike = async () => {
     try {
       await likeTaleMutation({ taleId });
-      setReaction(reaction === "like" ? null : "like");
 
       if (reaction === "like") {
         setLikesCount(likesCount - 1);
@@ -62,7 +48,6 @@ const ReactionButtons: React.FC<ReactionButtonsProps> = ({
   const handleDislike = async () => {
     try {
       await dislikeTaleMutation({ taleId });
-      setReaction(reaction === "dislike" ? null : "dislike");
 
       if (reaction === "dislike") {
         setDislikesCount(dislikesCount - 1);

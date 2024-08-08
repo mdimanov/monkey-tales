@@ -200,6 +200,10 @@ export type ReactionButtonsProps = {
   initialDislikesCount: number;
 }
 
+export type UseReactionProps = {
+  taleId: Id<"tales">;
+}
+
 export type ReactionType = "like" | "dislike" | null;
 
 export type IconProps = {
