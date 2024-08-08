@@ -109,11 +109,11 @@ const StatisticsPage = () => {
 
   const pieData = [
     {
-      name: "Likes",
+      name: "👍",
       value: totalLikes,
     },
     {
-      name: "Dislikes",
+      name: "👎",
       value: totalDislikes,
     },
   ];
@@ -145,16 +145,28 @@ const StatisticsPage = () => {
     const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
     return (
-      <text
-        x={x}
-        y={y}
-        fill="white"
-        textAnchor={x > cx ? "start" : "end"}
-        dominantBaseline="central"
-        style={{ pointerEvents: "none" }}
-      >
-        {`${pieData[index].name}: ${pieData[index].value}`}
-      </text>
+      <g>
+        <text
+          x={x + 20}
+          y={y - 10} // Adjusted position relative to image
+          fill="white"
+          textAnchor="start"
+          dominantBaseline="central"
+          style={{ fontSize: "28px" }} // Increase font size here
+        >
+          {`${pieData[index].name}`}
+        </text>
+        <text
+          x={x + 60}
+          y={y - 10} // Adjusted position below the name
+          fill="white"
+          textAnchor="start"
+          dominantBaseline="central"
+          style={{ fontSize: "14px" }} // Optional: smaller font size for the value
+        >
+          {`${pieData[index].value}`}
+        </text>
+      </g>
     );
   };
 
