@@ -190,7 +190,7 @@ const StatisticsPage = () => {
           </h2>
           <ChartContainer
             config={chartConfig}
-            className="xl:min-h-[300px] min-h-[100px] max-h-[380px] w-full"
+            className="xl:min-h-[250px] min-h-[100px] max-h-[380px] w-full"
           >
             <ResponsiveContainer width="100%" height="100%">
               <BarChart accessibilityLayer data={voiceUsage}>
@@ -213,7 +213,7 @@ const StatisticsPage = () => {
           <h2 className="text-lg font-medium text-white-1">Users Reactions</h2>
           <ChartContainer
             config={chartConfig}
-            className="xl:min-h-[340px] min-h-[160px] max-h-[380px] w-full xl:mt-36"
+            className="xl:min-h-[270px] min-h-[160px] max-h-[380px] w-full xl:mt-36"
           >
             <PieChart>
               <Pie
