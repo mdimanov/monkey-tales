@@ -63,7 +63,7 @@ const TaleDetailPlayer = ({
 
   return (
     <div className="relative mt-6 flex w-full justify-between max-md:justify-center">
-      <div className="flex flex-col gap-8 max-md:items-center md:flex-row">
+      <div className="flex w-full flex-col gap-8 max-md:items-center md:flex-row">
         <div className="w-full">
           <Image
             src={imageUrl}
