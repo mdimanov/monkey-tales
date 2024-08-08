@@ -194,6 +194,14 @@ export type UseDotButtonType = {
   onDotButtonClick: (index: number) => void;
 };
 
+export type ReactionButtonsProps = {
+  taleId: Id<"tales">;
+  initialLikesCount: number;
+  initialDislikesCount: number;
+}
+
+export type ReactionType = "like" | "dislike" | null;
+
 export type IconProps = {
   src: string;
   isVisible: boolean;
