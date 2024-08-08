@@ -138,9 +138,7 @@ const TaleDetailPlayer = ({
               />
               <h2 className="text-16 font-normal text-white-3">{author}</h2>
             </figure>
-            <p className="font-medium md:py-0 py-6 max-md:text-center">
-              {taleDescription}
-            </p>
+            <p className="font-medium md:py-0 py-6">{taleDescription}</p>
             <p className="mt-3">
               AI voice: <strong className="text-white-1">{voiceType}</strong>
             </p>
