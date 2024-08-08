@@ -1,7 +1,16 @@
 "use client";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
-import { Bar, BarChart, LabelList, YAxis } from "recharts";
+import {
+  Bar,
+  BarChart,
+  LabelList,
+  Pie,
+  ResponsiveContainer,
+  PieChart,
+  Cell,
+  LabelProps,
+} from "recharts";
 import {
   ChartConfig,
   ChartContainer,
@@ -52,13 +61,13 @@ const StatisticsPage = () => {
 
   const totalViews = allTales.reduce((sum, tale) => sum + tale.views, 0);
 
-  function getTotalDuration(data: TaleProps[]) {
+  const getTotalDuration = (data: TaleProps[]): number => {
     const totalMilliseconds = data.reduce(
       (total, item) => total + item.audioDuration * 1000,
       0
     );
     return totalMilliseconds;
-  }
+  };
 
   const totalDuration = formatDuration(
     getTotalDuration(allTales as TaleProps[])
@@ -91,6 +100,64 @@ const StatisticsPage = () => {
     },
   ];
 
+  // Calculate total likes and dislikes
+  const totalLikes = allTales.reduce((sum, tale) => sum + tale.likesCount, 0);
+  const totalDislikes = allTales.reduce(
+    (sum, tale) => sum + tale.dislikesCount,
+    0
+  );
+
+  const pieData = [
+    {
+      name: "Likes",
+      value: totalLikes,
+    },
+    {
+      name: "Dislikes",
+      value: totalDislikes,
+    },
+  ];
+
+  const COLORS = ["#00C49F", "#FF5B5B "];
+
+  // Define the type for the props passed to the custom label function
+  type CustomizedLabelProps = LabelProps & {
+    cx: number;
+    cy: number;
+    midAngle: number;
+    innerRadius: number;
+    outerRadius: number;
+    percent: number;
+    index: number;
+  };
+
+  const RADIAN = Math.PI / 180;
+  const renderCustomizedLabel: React.FC<CustomizedLabelProps> = ({
+    cx,
+    cy,
+    midAngle,
+    innerRadius,
+    outerRadius,
+    index,
+  }: CustomizedLabelProps) => {
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+    return (
+      <text
+        x={x}
+        y={y}
+        fill="white"
+        textAnchor={x > cx ? "start" : "end"}
+        dominantBaseline="central"
+        style={{ pointerEvents: "none" }}
+      >
+        {`${pieData[index].name}: ${pieData[index].value}`}
+      </text>
+    );
+  };
+
   return (
     <div className="flex flex-col gap-6">
       <h1 className="main_title">Statistics</h1>
@@ -104,25 +171,66 @@ const StatisticsPage = () => {
           />
         ))}
       </div>
-      <h2 className="text-lg font-medium text-white-1">AI Voice Preference</h2>
-      <ChartContainer
-        config={chartConfig}
-        className="min-h-[200px] max-h-[380px] w-full"
-      >
-        <BarChart accessibilityLayer data={voiceUsage}>
-          <Bar dataKey="usage" fill="var(--color-usage)" radius={4}>
-            <LabelList dataKey="usage" position="top" />
-            <LabelList
-              dataKey="voiceType"
-              position="insideBottom"
-              offset={10}
-              className="hidden sm:block"
-              style={{ fill: "white", fontSize: "16px" }}
-            />
-          </Bar>
-          <ChartTooltip content={<ChartTooltipContent />} />
-        </BarChart>
-      </ChartContainer>
+      <div className="flex flex-col xl:flex-row gap-6">
+        <div className="w-full xl:w-3/5">
+          <h2 className="text-lg font-medium text-white-1">
+            AI Voice Preference
+          </h2>
+          <ChartContainer
+            config={chartConfig}
+            className="xl:min-h-[300px] min-h-[100px] max-h-[380px] w-full"
+          >
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart accessibilityLayer data={voiceUsage}>
+                <Bar dataKey="usage" fill="var(--color-usage)" radius={4}>
+                  <LabelList dataKey="usage" position="top" />
+                  <LabelList
+                    dataKey="voiceType"
+                    position="insideBottom"
+                    offset={10}
+                    className="hidden sm:block"
+                    style={{ fill: "white", fontSize: "16px" }}
+                  />
+                </Bar>
+                <ChartTooltip content={<ChartTooltipContent />} />
+              </BarChart>
+            </ResponsiveContainer>
+          </ChartContainer>
+        </div>
+        <div className="w-full xl:w-2/5">
+          <h2 className="text-lg font-medium text-white-1">Users Reactions</h2>
+          <ChartContainer
+            config={chartConfig}
+            className="xl:min-h-[340px] min-h-[160px] max-h-[380px] w-full xl:mt-36"
+          >
+            <PieChart>
+              <Pie
+                data={pieData}
+                cx={160}
+                cy={180}
+                startAngle={180}
+                endAngle={0}
+                innerRadius={90}
+                outerRadius={150}
+                paddingAngle={5}
+                dataKey="value"
+                labelLine={false}
+                label={renderCustomizedLabel}
+                stroke="none"
+                style={{ pointerEvents: "none" }}
+              >
+                {pieData.map((entry, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={COLORS[index % COLORS.length]}
+                    style={{ pointerEvents: "none" }}
+                  />
+                ))}
+              </Pie>
+            </PieChart>
+          </ChartContainer>
+        </div>
+      </div>
     </div>
   );
 };
