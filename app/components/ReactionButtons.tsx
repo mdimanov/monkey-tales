@@ -24,43 +24,38 @@ const ReactionButtons: React.FC<ReactionButtonsProps> = ({
 
   const reaction = useReaction({ taleId });
 
-  const handleLike = async () => {
+  const handleReaction = async (type: "like" | "dislike") => {
     try {
-      await likeTaleMutation({ taleId });
+      if (type === "like") {
+        await likeTaleMutation({ taleId });
 
-      if (reaction === "like") {
-        setLikesCount(likesCount - 1);
-      } else {
-        setLikesCount(likesCount + 1);
-        if (reaction === "dislike") {
-          setDislikesCount(dislikesCount - 1);
-        }
-      }
-    } catch (error) {
-      console.error("Error liking the tale", error);
-      toast({
-        title: "Error liking the tale",
-        variant: "destructive",
-      });
-    }
-  };
-
-  const handleDislike = async () => {
-    try {
-      await dislikeTaleMutation({ taleId });
-
-      if (reaction === "dislike") {
-        setDislikesCount(dislikesCount - 1);
-      } else {
-        setDislikesCount(dislikesCount + 1);
         if (reaction === "like") {
           setLikesCount(likesCount - 1);
+        } else {
+          setLikesCount(likesCount + 1);
+          if (reaction === "dislike") {
+            setDislikesCount(dislikesCount - 1);
+          }
+        }
+      } else {
+        await dislikeTaleMutation({ taleId });
+
+        if (reaction === "dislike") {
+          setDislikesCount(dislikesCount - 1);
+        } else {
+          setDislikesCount(dislikesCount + 1);
+          if (reaction === "like") {
+            setLikesCount(likesCount - 1);
+          }
         }
       }
     } catch (error) {
-      console.error("Error disliking the tale", error);
+      console.error(
+        `Error ${type === "like" ? "liking" : "disliking"} the tale`,
+        error
+      );
       toast({
-        title: "Error disliking the tale",
+        title: `Error ${type === "like" ? "liking" : "disliking"} the tale`,
         variant: "destructive",
       });
     }
@@ -75,7 +70,7 @@ const ReactionButtons: React.FC<ReactionButtonsProps> = ({
             "bg-green-600 hover:bg-green-800": reaction === "like",
           }
         )}
-        onClick={handleLike}
+        onClick={() => handleReaction("like")}
       >
         <Image
           src={
@@ -96,7 +91,7 @@ const ReactionButtons: React.FC<ReactionButtonsProps> = ({
             "bg-red-600 hover:bg-red-800": reaction === "dislike",
           }
         )}
-        onClick={handleDislike}
+        onClick={() => handleReaction("dislike")}
       >
         {dislikesCount}
         <Image
