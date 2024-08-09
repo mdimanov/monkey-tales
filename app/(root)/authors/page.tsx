@@ -25,17 +25,15 @@ const Authors = ({
       <Searchbar searchPath={SearchPaths.Authors} />
       <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {authorsData ? (
-          results
-            .slice(0, 6)
-            .map((author) => (
-              <SmallProfileCard
-                key={author._id}
-                imageUrl={author?.imageUrl!}
-                userFirstName={author?.name!}
-                tales={author.totalTales}
-                clerkId={author.clerkId}
-              />
-            ))
+          results.map((author) => (
+            <SmallProfileCard
+              key={author._id}
+              imageUrl={author?.imageUrl!}
+              userFirstName={author?.name!}
+              tales={author.totalTales}
+              clerkId={author.clerkId}
+            />
+          ))
         ) : (
           <AuthorSmallCardSkeleton count={6} />
         )}
