@@ -63,8 +63,12 @@ const ProfilePage = ({
           </div>
         ) : (
           <EmptyState
-            title="You have not created any tales yet"
-            buttonLink="/create-tale"
+            title={
+              isMyProfile
+                ? "You have not created any tales yet"
+                : "User have not created any tales yet"
+            }
+            buttonLink={isMyProfile ? "/create-tale" : undefined}
             buttonText="Create Tale"
           />
         )}
