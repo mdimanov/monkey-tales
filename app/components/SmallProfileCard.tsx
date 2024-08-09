@@ -17,7 +17,7 @@ const SmallProfileCard = ({
 
   return (
     <div
-      className="w-full cursor-pointer transition-all duration-500 rounded-xl border-transparent hover:border-violet-800 hover:bg-lates-focus border-l-4 flex flex-col gap-3 md:gap-4 max-md:items-center md:flex-row"
+      className="w-full cursor-pointer transition-all duration-500 rounded-xl border-transparent md:hover:border-violet-800 md:hover:bg-lates-focus border-l-4 flex flex-col gap-3 md:gap-4 max-md:items-center md:flex-row"
       onClick={() => router.push(`/profile/${clerkId}`)}
     >
       <Image
