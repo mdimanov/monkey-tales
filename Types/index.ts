@@ -3,6 +3,7 @@
 import { Dispatch, SetStateAction } from "react";
 
 import { Id } from "../convex/_generated/dataModel"
+import { SearchPaths } from "../app/utils/constants";
  
 export interface EmptyStateProps {
   title: string;
@@ -203,6 +204,10 @@ export type ReactionButtonsProps = {
 export type UseReactionProps = {
   taleId: Id<"tales">;
 }
+
+export type SearchbarProps = {
+  searchPath: SearchPaths;
+};
 
 export type ReactionType = "like" | "dislike" | null;
 

@@ -1,32 +1,13 @@
-"use client";
-
 import { Input } from "@/components/ui/input";
 
 import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import { SearchPaths } from "../utils/constants";
-
-type SearchbarProps = {
-  searchPath: SearchPaths;
-};
+import { useSearch } from "../hooks/useSearch";
+import { SearchbarProps } from "@/Types";
 
 const Searchbar: FC<SearchbarProps> = ({ searchPath }) => {
-  const [search, setSearch] = useState("");
-  const router = useRouter();
-  const pathname = usePathname();
-
-  useEffect(() => {
-    const delayDebounceFn = setTimeout(() => {
-      if (search.length >= 3) {
-        router.push(`/${searchPath}?search=${search}`);
-      } else if (search.length === 0 && pathname === `/${searchPath}`) {
-        router.push(`/${searchPath}`);
-      }
-    }, 500);
-
-    return () => clearTimeout(delayDebounceFn);
-  }, [search, router, pathname, searchPath]);
+  const { search, setSearch } = useSearch({ searchPath });
 
   const placeholderText =
     searchPath === SearchPaths.Discover
