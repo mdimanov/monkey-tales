@@ -28,7 +28,7 @@ const SortSelect = ({
   }, [selectedValue, search, page, router]);
 
   return (
-    <div className="flex w-96 items-center gap-2.5">
+    <div className="flex md:w-96 items-center gap-2.5">
       <Label className="text-16 font-bold text-white-1 w-36 text-right">
         Filter by:
       </Label>
