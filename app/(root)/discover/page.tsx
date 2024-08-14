@@ -10,6 +10,7 @@ import { useQuery } from "convex/react";
 import PagePagination from "@/app/components/PagePagination";
 import { SearchPaths } from "@/app/utils/constants";
 import SortSelect from "@/app/components/SortSelect";
+import SearchResultsCount from "@/app/components/SearchResultsCount";
 
 const Discover = ({
   searchParams: { search = "", page = "1", sort = "date" },
@@ -37,6 +38,7 @@ const Discover = ({
         <>
           {totalCount > 0 ? (
             <>
+              <SearchResultsCount search={search} totalCount={totalCount} />
               <div className="tale_grid">
                 {results.map(
                   ({ _id, taleTitle, taleDescription, imageUrl, views }) => (
@@ -63,9 +65,12 @@ const Discover = ({
           )}
         </>
       ) : (
-        <div className="tale_grid">
-          <TaleCardSkeleton count={8} />
-        </div>
+        <>
+          <SearchResultsCount />
+          <div className="tale_grid">
+            <TaleCardSkeleton count={8} />
+          </div>
+        </>
       )}
     </div>
   );

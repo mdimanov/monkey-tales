@@ -49,7 +49,7 @@ const TaleCard = ({
             {title}
           </h2>
           <p className="text-12 text-white-500">
-            {truncateText(description, 15)}
+            {truncateText(description, 10)}
           </p>
         </div>
       </figure>

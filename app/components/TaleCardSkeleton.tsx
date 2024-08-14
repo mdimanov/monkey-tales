@@ -16,7 +16,7 @@ const TaleCardSkeleton: FC<TaleCardSkeletonProps> = ({ count }) => {
             <Skeleton className="h-4 w-[120px] sm:w-[210px]" />
             <Skeleton className="h-4 w-[80px] sm:w-[180px]" />
           </div>
-          <div className="h-7"></div>
+          <div className="h-3"></div>
         </div>
       ))}
     </>
