@@ -41,7 +41,7 @@ const Home = () => {
             href="/discover"
             className="text-sm text-purple-2 hover:text-violet-300 transition-all duration-500"
           >
-            See all
+            View all
           </Link>
         </div>
         <div className="flex flex-col gap-2">

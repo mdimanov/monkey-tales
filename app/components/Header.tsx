@@ -19,7 +19,7 @@ const Header = ({
         href={pageUrl ? pageUrl : "/"}
         className="text-sm text-purple-2 hover:text-violet-300 transition-all duration-500"
       >
-        See all
+        View all
       </Link>
     </header>
   );
