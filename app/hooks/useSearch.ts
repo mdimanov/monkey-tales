@@ -19,5 +19,5 @@ export const useSearch = ({ searchPath }: SearchbarProps) => {
     return () => clearTimeout(delayDebounceFn);
   }, [search, router, pathname, searchPath]);
 
-  return { search, setSearch };g
+  return { search, setSearch };
 };
