@@ -10,6 +10,7 @@ import { useUser } from "@clerk/nextjs";
 import { useQuery } from "convex/react";
 import Image from "next/image";
 import React from "react";
+import Head from "next/head";
 
 const TaleDetails = ({
   params: { taleId },
@@ -26,6 +27,33 @@ const TaleDetails = ({
 
   return (
     <section className="flex w-full flex-col">
+      <Head>
+        <title>{tale?.taleTitle || "Tale Details"}</title>
+        <meta
+          name="description"
+          content={
+            tale?.taleDescription ||
+            "Listen to the latest tales and explore similar stories."
+          }
+        />
+        <meta property="og:title" content={tale?.taleTitle || "Tale Details"} />
+        <meta
+          property="og:description"
+          content={
+            tale?.taleDescription ||
+            "Listen to the latest tales and explore similar stories."
+          }
+        />
+        <meta
+          property="og:image"
+          content={tale?.imageUrl || "/default-image.jpg"}
+        />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:url"
+          content={`https://monkey-tales.vercel.app/tales/${taleId}`}
+        />
+      </Head>
       <header className="flex items-center justify-between">
         <h1 className="text-24 font-bold text-slate-50">Currently playing</h1>
         <figure className="flex gap-3">
