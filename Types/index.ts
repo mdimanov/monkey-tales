@@ -57,6 +57,7 @@ export interface TalesData {
 
 export interface AuthorsData {
   results: AuthorsProps[];
+  totalCount: number;
 }
 
 export interface ProfileTaleProps {

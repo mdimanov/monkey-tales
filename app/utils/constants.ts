@@ -9,6 +9,11 @@ export enum SearchPaths {
   Authors = 'authors',
 }
 
+export enum SearchResults {
+  Tales = 'tales',
+  Authors = 'authors',
+}
+
 export const NAVIGATION: NavigationItem[] = [
     { label: "Home", route: "/", icon: 'home'},
     { label: "Discover", route: "/discover", icon: 'search'},

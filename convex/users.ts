@@ -91,10 +91,13 @@ export const getAuthorsBySearch = query({
       })
     );
 
+    // Calculate total count of results
+    const totalCount = userData.length;
+
     // Sort userData alphabetically by the authors' names
     const sortedUserData = userData.sort((a, b) => a.name.localeCompare(b.name));
 
-    return { results: sortedUserData };
+    return { results: sortedUserData, totalCount };
   },
 });
 

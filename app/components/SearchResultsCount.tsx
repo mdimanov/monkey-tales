@@ -1,11 +1,17 @@
 import React from "react";
+import { SearchResults } from "../utils/constants";
 
 type SearchResultsProps = {
   search?: string;
   totalCount?: number;
+  searchResultsLabel?: SearchResults;
 };
 
-const SearchResultsCount = ({ search, totalCount }: SearchResultsProps) => {
+const SearchResultsCount = ({
+  search,
+  totalCount,
+  searchResultsLabel,
+}: SearchResultsProps) => {
   // Handle the case where neither search nor totalCount is provided
   if (search === undefined && totalCount === undefined) {
     return <div className="text-gray-500 text-sm -mb-3">Searching...</div>;
@@ -24,7 +30,9 @@ const SearchResultsCount = ({ search, totalCount }: SearchResultsProps) => {
 
   // Handle the case where only totalCount is provided (no search term)
   return (
-    <div className="text-gray-500 text-sm -mb-3">All tales: {totalCount}</div>
+    <div className="text-gray-500 text-sm -mb-3">
+      All {searchResultsLabel}: {totalCount}
+    </div>
   );
 };
 

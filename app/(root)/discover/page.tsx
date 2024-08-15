@@ -8,7 +8,7 @@ import { api } from "@/convex/_generated/api";
 import { TalesData, PAGE_SIZE } from "@/Types/index";
 import { useQuery } from "convex/react";
 import PagePagination from "@/app/components/PagePagination";
-import { SearchPaths } from "@/app/utils/constants";
+import { SearchPaths, SearchResults } from "@/app/utils/constants";
 import SortSelect from "@/app/components/SortSelect";
 import SearchResultsCount from "@/app/components/SearchResultsCount";
 
@@ -38,7 +38,11 @@ const Discover = ({
         <>
           {totalCount > 0 ? (
             <>
-              <SearchResultsCount search={search} totalCount={totalCount} />
+              <SearchResultsCount
+                search={search}
+                totalCount={totalCount}
+                searchResultsLabel={SearchResults.Tales}
+              />
               <div className="tale_grid">
                 {results.map(
                   ({ _id, taleTitle, taleDescription, imageUrl, views }) => (
