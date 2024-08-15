@@ -1,12 +1,8 @@
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { SearchPaths } from "../utils/constants";
+import { SearchbarProps } from "@/Types";
 
-type UseSearchProps = {
-  searchPath: SearchPaths;
-};
-
-export const useSearch = ({ searchPath }: UseSearchProps) => {
+export const useSearch = ({ searchPath }: SearchbarProps) => {
   const [search, setSearch] = useState("");
   const router = useRouter();
   const pathname = usePathname();
@@ -23,5 +19,5 @@ export const useSearch = ({ searchPath }: UseSearchProps) => {
     return () => clearTimeout(delayDebounceFn);
   }, [search, router, pathname, searchPath]);
 
-  return { search, setSearch };
+  return { search, setSearch };g
 };
