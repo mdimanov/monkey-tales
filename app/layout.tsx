@@ -1,18 +1,9 @@
-import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import "./globals.css";
 import ConvexClerkProvider from "../providers/ConvexClerkProvider";
 import AudioProvider from "../providers/AudioProvider";
 
 const manrope = Manrope({ subsets: ["latin"] });
-
-export const metadata: Metadata = {
-  title: "Monkey Tales",
-  description: "Generate your tales using AI",
-  icons: {
-    icon: "/icons/monkey-tales.png",
-  },
-};
 
 export default function RootLayout({
   children,
