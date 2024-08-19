@@ -1,5 +1,3 @@
-"use client";
-
 import { Id } from "@/convex/_generated/dataModel";
 import { FacebookShareButton, FacebookIcon } from "next-share";
 import React from "react";
