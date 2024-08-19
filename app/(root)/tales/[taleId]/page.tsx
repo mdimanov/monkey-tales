@@ -11,7 +11,7 @@ import { useQuery } from "convex/react";
 import Image from "next/image";
 import React from "react";
 
-const TaleDetails = ({
+export const TaleDetails = ({
   params: { taleId },
 }: {
   params: { taleId: Id<"tales"> };
