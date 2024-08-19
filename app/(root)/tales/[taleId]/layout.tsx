@@ -6,6 +6,7 @@ import { api } from "@/convex/_generated/api";
 import { TaleProps } from "@/Types";
 
 import React from "react";
+import { PROD_URL } from "@/app/utils/constants";
 
 type TaleLayoutProps = {
   children: React.ReactNode;
@@ -30,6 +31,7 @@ export async function generateMetadata({
   return {
     title: taleData.taleTitle,
     description: taleData.taleDescription,
+    metadataBase: new URL(`${PROD_URL}/tales/${taleId}`),
     openGraph: {
       images: [taleData.imageUrl ?? "/images/no-photo-available.jpg"],
     },
