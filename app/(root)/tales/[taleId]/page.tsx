@@ -23,7 +23,7 @@ const TaleDetails = ({
   const similarTales = useQuery(api.tales.getTaleByVoiceType, { taleId });
 
   const isOwner = user?.id === tale?.authorId;
-  const taleShareUrl = `${PROD_URL}/tales/${taleId}`;
+  const taleShareUrl = `${PROD_URL}/tales/${taleId}` as string;
 
   if (!similarTales || !tale) return <LoaderSpiner />;
 

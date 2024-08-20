@@ -12,7 +12,7 @@ type ShareButtonsProps = {
   shareUrl: string;
 };
 
-const ShareButtons = ({ shareUrl }: string) => {
+const ShareButtons = ({ shareUrl }: ShareButtonsProps) => {
   return (
     <div className="flex items-center mt-3 gap-3">
       <p>Share:</p>
