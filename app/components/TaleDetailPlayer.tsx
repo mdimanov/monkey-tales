@@ -66,8 +66,8 @@ const TaleDetailPlayer = ({
 
   return (
     <div className="relative mt-6 flex w-full justify-between max-md:justify-center">
-      <div className="flex w-full flex-col gap-8 max-md:items-center md:flex-row">
-        <div className="w-full">
+      <div className="flex w-full flex-col gap-8 max-lg:items-center lg:flex-row">
+        <div className="w-full relative">
           <Image
             src={imageUrl}
             width={300}
@@ -75,6 +75,19 @@ const TaleDetailPlayer = ({
             alt="Tale image"
             className="w-full h-auto max-w-full max-h-full rounded-lg"
           />
+          {isOwner && (
+            <div className="absolute min-w-[40px] top-2.5 right-2.5">
+              <EditProvider>
+                <EditTaleControls
+                  taleId={taleId}
+                  taleTitle={taleTitle}
+                  taleDescription={taleDescription}
+                  imageStorageId={imageStorageId}
+                  audioStorageId={audioStorageId}
+                />
+              </EditProvider>
+            </div>
+          )}
         </div>
         <div className="flex w-full flex-col gap-5 max-md:items-center md:gap-6">
           <article className="flex flex-col gap-2 max-md:items-center">
@@ -140,19 +153,6 @@ const TaleDetailPlayer = ({
           </div>
         </div>
       </div>
-      {isOwner && (
-        <div className="absolute min-w-[40px] md:right-0 md:top-0 md:relative top-2.5 right-2.5">
-          <EditProvider>
-            <EditTaleControls
-              taleId={taleId}
-              taleTitle={taleTitle}
-              taleDescription={taleDescription}
-              imageStorageId={imageStorageId}
-              audioStorageId={audioStorageId}
-            />
-          </EditProvider>
-        </div>
-      )}
     </div>
   );
 };
