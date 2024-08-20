@@ -36,7 +36,7 @@ const LeftSidebar = () => {
             height={32}
           />
           <h1
-            className={`text-20 ${raleway.className} font-extrabold  max-md:hidden`}
+            className={`text-20 ${raleway.className} font-extrabold max-md:hidden`}
           >
             Monkey<span className="font-light">Tales</span>
           </h1>
