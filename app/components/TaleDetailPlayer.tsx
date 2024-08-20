@@ -125,7 +125,7 @@ const TaleDetailPlayer = ({
                 />
               </>
             ) : (
-              <div className="text-center text-white-3">
+              <div className="text-center">
                 <p className="mb-2">
                   To listen to this tale, please{" "}
                   <Link

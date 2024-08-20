@@ -2,13 +2,14 @@
 
 import EmptyState from "@/app/components/EmptyState";
 import LoaderSpiner from "@/app/components/LoaderSpiner";
+import ShareButtons from "@/app/components/ShareButtons";
 import TaleCard from "@/app/components/TaleCard";
 import TaleDetailPlayer from "@/app/components/TaleDetailPlayer";
+import { PROD_URL } from "@/app/utils/constants";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { useUser } from "@clerk/nextjs";
 import { useQuery } from "convex/react";
-import { FacebookShareButton, FacebookIcon } from "next-share";
 import Image from "next/image";
 import React from "react";
 
@@ -22,6 +23,7 @@ const TaleDetails = ({
   const similarTales = useQuery(api.tales.getTaleByVoiceType, { taleId });
 
   const isOwner = user?.id === tale?.authorId;
+  const taleShareUrl = `${PROD_URL}/tales/${taleId}`;
 
   if (!similarTales || !tale) return <LoaderSpiner />;
 
@@ -40,12 +42,7 @@ const TaleDetails = ({
         </figure>
       </header>
       <TaleDetailPlayer isOwner={isOwner} taleId={tale._id} {...tale} />
-      <FacebookShareButton
-        url={`https://monkey-tales.vercel.app/tales/${taleId}`}
-        hashtag={"#nextshare"}
-      >
-        <FacebookIcon size={32} className="mt-3" round />
-      </FacebookShareButton>
+      <ShareButtons shareUrl={taleShareUrl} />
       <div className="flex flex-col mt-6 gap-8">
         <div className="flex flex-col gap-4">
           <h3 className="text-18 text-white-1 font-medium">Transcription</h3>
