@@ -2,12 +2,14 @@
 
 import { useMutation } from "convex/react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { api } from "@/convex/_generated/api";
 import { useAudio } from "@/providers/AudioProvider";
 import { TaleDetailPlayerProps } from "@/Types";
+import { useUser } from "@clerk/nextjs";
 
 import LoaderSpinner from "./LoaderSpiner";
 import { Button } from "@/components/ui/button";
@@ -35,6 +37,7 @@ const TaleDetailPlayer = ({
   const router = useRouter();
   const { setAudio } = useAudio();
   const { toast } = useToast();
+  const { isSignedIn } = useUser();
   const [isPlaying, setIsPlaying] = useState(false);
 
   const updateViews = useMutation(api.tales.updateTaleViews);
@@ -100,24 +103,40 @@ const TaleDetailPlayer = ({
             </p>
           </article>
           <div className="flex flex-col w-full items-center md:flex-row md:justify-between gap-2">
-            <Button
-              onClick={handlePlay}
-              disabled={isPlaying}
-              className="text-16 w-full max-w-[250px] transition-all duration-500 bg-violet-600 hover:bg-violet-800 font-extrabold text-white-1"
-            >
-              <Image
-                src="/icons/play.svg"
-                width={20}
-                height={20}
-                alt="random play"
-              />
-              &nbsp; Play tale
-            </Button>
-            <ReactionButtons
-              taleId={taleId}
-              initialLikesCount={likesCount}
-              initialDislikesCount={dislikesCount}
-            />
+            {isSignedIn ? (
+              <>
+                <Button
+                  onClick={handlePlay}
+                  disabled={isPlaying}
+                  className="text-16 w-full max-w-[250px] transition-all duration-500 bg-violet-600 hover:bg-violet-800 font-extrabold text-white-1"
+                >
+                  <Image
+                    src="/icons/play.svg"
+                    width={20}
+                    height={20}
+                    alt="random play"
+                  />
+                  &nbsp; Play tale
+                </Button>
+                <ReactionButtons
+                  taleId={taleId}
+                  initialLikesCount={likesCount}
+                  initialDislikesCount={dislikesCount}
+                />
+              </>
+            ) : (
+              <div className="text-center text-white-3">
+                <p className="mb-2">
+                  To listen to this tale, please{" "}
+                  <Link
+                    href="/sign-in"
+                    className=" text-purple-2 hover:text-violet-300 transition-all duration-500"
+                  >
+                    sign in
+                  </Link>
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>
